@@ -63,7 +63,7 @@ dependencies {
   def developmentDependencies = rootProject.ext.developmentDependencies
 
   compile project(':domain')
-  compile project(':data')
+  compile project(':service')
 
   apt presentationDependencies.daggerCompiler
   compile presentationDependencies.dagger
