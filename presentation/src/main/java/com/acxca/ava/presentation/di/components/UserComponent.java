@@ -18,6 +18,7 @@ package com.acxca.ava.presentation.di.components;
 import com.acxca.ava.presentation.di.PerActivity;
 import com.acxca.ava.presentation.di.modules.ActivityModule;
 import com.acxca.ava.presentation.di.modules.UserModule;
+import com.acxca.ava.presentation.view.fragment.LoginFragment;
 import com.acxca.ava.presentation.view.fragment.UserDetailsFragment;
 import com.acxca.ava.presentation.view.fragment.UserListFragment;
 import dagger.Component;
@@ -31,4 +32,5 @@ import dagger.Component;
 public interface UserComponent extends ActivityComponent {
   void inject(UserListFragment userListFragment);
   void inject(UserDetailsFragment userDetailsFragment);
+  void inject(LoginFragment loginFragment);
 }

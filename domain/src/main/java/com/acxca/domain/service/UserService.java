@@ -28,5 +28,5 @@ public interface UserService {
   /**
    * Get an {@link Observable} which will emit a List of {@link User}.
    */
-  Observable<Map<String,String>> captcher();
+  Observable<Map<String,String>> getKaptcha();
 }

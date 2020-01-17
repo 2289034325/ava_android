@@ -16,6 +16,8 @@
 package com.acxca.ava.presentation.di.modules;
 
 import android.content.Context;
+
+import com.acxca.ava.service.api.UserServiceImp;
 import com.acxca.ava.service.cache.UserCache;
 import com.acxca.ava.service.cache.UserCacheImpl;
 import com.acxca.ava.service.executor.JobExecutor;
@@ -25,6 +27,7 @@ import com.acxca.domain.executor.ThreadExecutor;
 import com.acxca.domain.repository.UserRepository;
 import com.acxca.ava.presentation.AndroidApplication;
 import com.acxca.ava.presentation.UIThread;
+import com.acxca.domain.service.UserService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -59,5 +62,9 @@ public class ApplicationModule {
 
   @Provides @Singleton UserRepository provideUserRepository(UserDataRepository userDataRepository) {
     return userDataRepository;
+  }
+
+  @Provides @Singleton UserService provideUserService(UserServiceImp userServiceImp) {
+    return userServiceImp;
   }
 }

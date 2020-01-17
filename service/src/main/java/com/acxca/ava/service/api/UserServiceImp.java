@@ -15,12 +15,22 @@
  */
 package com.acxca.ava.service.api;
 
-import com.acxca.ava.service.api.datasource.UserDataStoreFactory;
-import com.acxca.ava.service.entity.mapper.UserEntityDataMapper;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+import com.acxca.ava.service.entity.UserEntity;
+import com.acxca.ava.service.exception.NetworkConnectionException;
+import com.acxca.ava.service.net.ApiConnection;
 import com.acxca.ava.service.net.RestApi;
 import com.acxca.domain.repository.UserRepository;
 import com.acxca.domain.service.UserService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -34,19 +44,54 @@ import io.reactivex.Observable;
 @Singleton
 public class UserServiceImp implements UserService {
 
-  private final RestApi restApi;
+  private final Gson gson;
+  private final Context context;
 
   /**
    * Constructs a {@link UserRepository}.
-   * @param restApi
+   * @param gson
+   * @param context
    */
   @Inject
-  UserServiceImp(RestApi restApi) {
-    this.restApi = restApi;
+  UserServiceImp(Gson gson, Context context) {
+    this.gson = gson;
+    this.context = context;
   }
 
   @Override
-  public Observable<Map<String, String>> captcher() {
-    return null;
+  public Observable<Map<String, String>> getKaptcha() {
+    return Observable.create(emitter -> {
+      if (isThereInternetConnection()) {
+        try {
+          String API_BASE_URL = "http://localhost:9000/";
+          String API_URL_KAPTCHER = API_BASE_URL+"kaptcha/";
+          String responseString =  ApiConnection.createGET(API_URL_KAPTCHER).requestSyncCall();
+
+          if (responseString != null) {
+            final Type responseType = new TypeToken<Map>() {}.getType();
+            Map m = this.gson.fromJson(responseString, responseType);
+            emitter.onNext(m);
+            emitter.onComplete();
+          } else {
+            emitter.onError(new NetworkConnectionException());
+          }
+        } catch (Exception e) {
+          emitter.onError(new NetworkConnectionException(e.getCause()));
+        }
+      } else {
+        emitter.onError(new NetworkConnectionException());
+      }
+    });
+  }
+
+  private boolean isThereInternetConnection() {
+    boolean isConnected;
+
+    ConnectivityManager connectivityManager =
+            (ConnectivityManager) this.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+    isConnected = (networkInfo != null && networkInfo.isConnectedOrConnecting());
+
+    return isConnected;
   }
 }
