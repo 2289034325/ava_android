@@ -7,8 +7,11 @@ package com.acxca.ava.presentation.view.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,12 +60,12 @@ public class LoginFragment extends BaseFragment implements LoginView {
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-//    this.getComponent(UserComponent.class).inject(this);
+    this.getComponent(UserComponent.class).inject(this);
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    final View fragmentView = inflater.inflate(R.layout.fragment_user_list, container, false);
+    final View fragmentView = inflater.inflate(R.layout.fragment_login, container, false);
     ButterKnife.bind(this, fragmentView);
     return fragmentView;
   }
@@ -139,6 +142,8 @@ public class LoginFragment extends BaseFragment implements LoginView {
 
   @Override
   public void renderKaptcha(String imgString) {
-
+    byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
+    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+    img_kapatcha.setImageBitmap(decodedByte);
   }
 }

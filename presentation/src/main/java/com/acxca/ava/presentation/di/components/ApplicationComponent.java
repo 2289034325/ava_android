@@ -21,6 +21,8 @@ import com.acxca.domain.executor.ThreadExecutor;
 import com.acxca.domain.repository.UserRepository;
 import com.acxca.ava.presentation.di.modules.ApplicationModule;
 import com.acxca.ava.presentation.view.activity.BaseActivity;
+import com.acxca.domain.service.UserService;
+
 import dagger.Component;
 import javax.inject.Singleton;
 
@@ -37,4 +39,5 @@ public interface ApplicationComponent {
   ThreadExecutor threadExecutor();
   PostExecutionThread postExecutionThread();
   UserRepository userRepository();
+  UserService userService();
 }

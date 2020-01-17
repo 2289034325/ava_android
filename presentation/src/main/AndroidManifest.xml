@@ -30,6 +30,8 @@
         <activity
             android:name="com.acxca.ava.presentation.view.activity.UserDetailsActivity"
             android:label="@string/activity_title_user_details"></activity>
+        <activity
+            android:name="com.acxca.ava.presentation.view.activity.LoginActivity"></activity>
     </application>
 
 </manifest>

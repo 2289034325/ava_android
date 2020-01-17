@@ -49,12 +49,11 @@ public class UserServiceImp implements UserService {
 
   /**
    * Constructs a {@link UserRepository}.
-   * @param gson
    * @param context
    */
   @Inject
-  UserServiceImp(Gson gson, Context context) {
-    this.gson = gson;
+  UserServiceImp( Context context) {
+    this.gson = new Gson();
     this.context = context;
   }
 
@@ -63,7 +62,7 @@ public class UserServiceImp implements UserService {
     return Observable.create(emitter -> {
       if (isThereInternetConnection()) {
         try {
-          String API_BASE_URL = "http://localhost:9000/";
+          String API_BASE_URL = "http://10.0.2.2:9000/";
           String API_URL_KAPTCHER = API_BASE_URL+"kaptcha/";
           String responseString =  ApiConnection.createGET(API_URL_KAPTCHER).requestSyncCall();
 
