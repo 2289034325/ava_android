@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.acxca.ava.service.repository;
+package com.acxca.ava.service.api;
 
 import com.acxca.ava.service.entity.UserEntity;
 import com.acxca.ava.service.entity.mapper.UserEntityDataMapper;
-import com.acxca.ava.service.repository.datasource.UserDataStore;
-import com.acxca.ava.service.repository.datasource.UserDataStoreFactory;
+import com.acxca.ava.service.api.datasource.UserDataStore;
+import com.acxca.ava.service.api.datasource.UserDataStoreFactory;
 import com.acxca.domain.User;
 import io.reactivex.Observable;
 import java.util.ArrayList;

@@ -19,7 +19,7 @@ import android.content.Context;
 import com.acxca.ava.service.cache.UserCache;
 import com.acxca.ava.service.cache.UserCacheImpl;
 import com.acxca.ava.service.executor.JobExecutor;
-import com.acxca.ava.service.repository.UserDataRepository;
+import com.acxca.ava.service.api.UserDataRepository;
 import com.acxca.domain.executor.PostExecutionThread;
 import com.acxca.domain.executor.ThreadExecutor;
 import com.acxca.domain.repository.UserRepository;

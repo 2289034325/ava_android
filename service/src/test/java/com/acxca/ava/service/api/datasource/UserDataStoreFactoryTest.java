@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.acxca.ava.service.repository.datasource;
+package com.acxca.ava.service.api.datasource;
 
 import com.acxca.ava.service.ApplicationTestCase;
 import com.acxca.ava.service.cache.UserCache;

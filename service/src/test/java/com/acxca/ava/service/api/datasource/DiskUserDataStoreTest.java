@@ -13,51 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.acxca.ava.service.repository.datasource;
+package com.acxca.ava.service.api.datasource;
 
 import com.acxca.ava.service.cache.UserCache;
-import com.acxca.ava.service.entity.UserEntity;
-import com.acxca.ava.service.net.RestApi;
 
-import io.reactivex.Observable;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CloudUserDataStoreTest {
+public class DiskUserDataStoreTest {
 
-  private static final int FAKE_USER_ID = 765;
+  private static final int FAKE_USER_ID = 11;
 
-  private CloudUserDataStore cloudUserDataStore;
+  private DiskUserDataStore diskUserDataStore;
 
-  @Mock private RestApi mockRestApi;
   @Mock private UserCache mockUserCache;
+
+  @Rule public ExpectedException expectedException = ExpectedException.none();
 
   @Before
   public void setUp() {
-    cloudUserDataStore = new CloudUserDataStore(mockRestApi, mockUserCache);
+    diskUserDataStore = new DiskUserDataStore(mockUserCache);
   }
 
   @Test
-  public void testGetUserEntityListFromApi() {
-    cloudUserDataStore.userEntityList();
-    verify(mockRestApi).userEntityList();
+  public void testGetUserEntityListUnsupported() {
+    expectedException.expect(UnsupportedOperationException.class);
+    diskUserDataStore.userEntityList();
   }
 
   @Test
-  public void testGetUserEntityDetailsFromApi() {
-    UserEntity fakeUserEntity = new UserEntity();
-    Observable<UserEntity> fakeObservable = Observable.just(fakeUserEntity);
-    given(mockRestApi.userEntityById(FAKE_USER_ID)).willReturn(fakeObservable);
-
-    cloudUserDataStore.userEntityDetails(FAKE_USER_ID);
-
-    verify(mockRestApi).userEntityById(FAKE_USER_ID);
+  public void testGetUserEntityDetailesFromCache() {
+    diskUserDataStore.userEntityDetails(FAKE_USER_ID);
+    verify(mockUserCache).get(FAKE_USER_ID);
   }
 }
