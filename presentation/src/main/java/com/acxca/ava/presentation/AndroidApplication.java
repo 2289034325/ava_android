@@ -19,7 +19,6 @@ import android.app.Application;
 import com.acxca.ava.presentation.di.components.ApplicationComponent;
 import com.acxca.ava.presentation.di.components.DaggerApplicationComponent;
 import com.acxca.ava.presentation.di.modules.ApplicationModule;
-import com.fernandocejas.android10.sample.presentation.BuildConfig;
 import com.squareup.leakcanary.LeakCanary;
 
 /**

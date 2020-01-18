@@ -124,6 +124,8 @@ public class LoginPresenter implements Presenter {
     }
 
     @Override public void onNext(Map<String,String> kaptcha) {
+      String ticket = kaptcha.get("ticket");
+
       String img = kaptcha.get("img");
       LoginPresenter.this.renderImageInView(img);
     }

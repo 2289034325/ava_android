@@ -16,9 +16,10 @@
 package com.acxca.ava.presentation.exception;
 
 import android.content.Context;
+
+import com.acxca.ava.presentation.R;
 import com.acxca.ava.service.exception.NetworkConnectionException;
 import com.acxca.ava.service.exception.UserNotFoundException;
-import com.fernandocejas.android10.sample.presentation.R;
 
 /**
  * Factory used to create error messages from an Exception as a condition.

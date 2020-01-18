@@ -10,7 +10,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,17 +18,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.acxca.ava.presentation.R;
 import com.acxca.ava.presentation.di.components.UserComponent;
-import com.acxca.ava.presentation.model.UserModel;
 import com.acxca.ava.presentation.presenter.LoginPresenter;
-import com.acxca.ava.presentation.presenter.UserListPresenter;
 import com.acxca.ava.presentation.view.LoginView;
-import com.acxca.ava.presentation.view.UserListView;
-import com.acxca.ava.presentation.view.adapter.UsersAdapter;
-import com.acxca.ava.presentation.view.adapter.UsersLayoutManager;
-import com.fernandocejas.android10.sample.presentation.R;
-
-import java.util.Collection;
 
 import javax.inject.Inject;
 
@@ -138,6 +130,14 @@ public class LoginFragment extends BaseFragment implements LoginView {
 
   @OnClick(R.id.bt_retry) void onButtonRetryClick() {
     LoginFragment.this.loadKaptcha();
+  }
+
+  @OnClick(R.id.img_kapatcha) void onKaptchaClick() {
+    LoginFragment.this.loadKaptcha();
+  }
+
+  @OnClick(R.id.btn_login) void onLoginClick() {
+
   }
 
   @Override

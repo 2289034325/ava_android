@@ -15,7 +15,8 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.fernandocejas.android10.sample.presentation.R;
+
+import com.acxca.ava.presentation.R;
 import com.acxca.ava.presentation.di.components.UserComponent;
 import com.acxca.ava.presentation.model.UserModel;
 import com.acxca.ava.presentation.presenter.UserDetailsPresenter;

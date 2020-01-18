@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Android Clean Architecture</string>
+    <string name="app_name">AVA</string>
     <string name="url">http://www.android10.org/</string>
 
     <string name="activity_title_user_list">Users List</string>
@@ -22,8 +22,9 @@
     <string name="title_activity_login">Sign in</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
+    <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
-    <string name="prompt_validation_code">Validation Code</string>
+    <string name="prompt_validation_code">ValidationCode</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>

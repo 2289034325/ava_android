@@ -9,7 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
-import com.fernandocejas.android10.sample.presentation.R;
+
+import com.acxca.ava.presentation.R;
 import com.acxca.ava.presentation.di.HasComponent;
 import com.acxca.ava.presentation.di.components.DaggerUserComponent;
 import com.acxca.ava.presentation.di.components.UserComponent;

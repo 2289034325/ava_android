@@ -12,7 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.fernandocejas.android10.sample.presentation.R;
+
+import com.acxca.ava.presentation.R;
 import com.acxca.ava.presentation.model.UserModel;
 import java.util.Collection;
 import java.util.Collections;
