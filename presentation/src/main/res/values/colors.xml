@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <color name="colorPrimary2">@color/yjyx_light_blue</color>
+    <color name="colorPrimaryDark">@color/yjyx_light_blue</color>
+    <color name="colorAccent">@color/yjyx_light_blue</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="edit_text">#415067</color>
+    <color name="settings_remove">#ffff0000</color>
+    <color name="login_hint">#40000000</color>
+    <color name="login_text_color">#333333</color>
+    <color name="money_number">#ff0000</color>
+    <color name="give_feedback_text_color">#8a8a8a</color>
+    <color name="stu_change_class">#bababa</color>
+    <color name="exchange_success_graps">#efeff4</color>
+
+    <color name="yjyx_black">#333333</color>
+    <color name="yjyx_title_divid_gray">#e4e4e6</color>
+    <color name="yjyx_content_gray">#f4f4f4</color>
+    <color name="yjyx_blue">#0388e3</color>
+    <color name="yjyx_light_blue">#50d190</color>
+    <color name="register_txt_hint">#a8a8a8</color>
+    <color name="register_code_bkg">#e6e6e6</color>
+
+    <color name="customdialog_bg_color">@color/divider_color</color>
+    <color name="uvv_black">#ff000000</color>
+    <color name="uvv_light_gray">#ffF0F0F0</color>
+    <color name="uvv_titlebar_bg">#7f000000</color>
+    <color name="class_invition_text">#999999</color>
+    <color name="class_text_color">#333333</color>
+    <color name="class_grap_line_color">#dcdcdc</color>
+    <color name="yjyx_gray">#999999</color>
+    <color name="tree_diliver_color">#e7e7e7</color>
+    <color name="select_version_text_color">#9f9f9f</color>
+    <color name="question_levle_color">#cccc99</color>
+    <color name="gray66">#666666</color>
+    <color name="gray33">#333333</color>
+    <color name="gray99">#999999</color>
+
+    <color name="pickerview_bg_topbar">#f5f5f5</color>
+    <color name="pickerview_topbar_title">#000000</color>
+    <color name="pickerview_wheelview_textcolor_out">#a8a8a8</color>
+    <color name="pickerview_wheelview_textcolor_center">#2a2a2a</color>
+    <color name="pickerview_wheelview_textcolor_divider">#d5d5d5</color>
+    <color name="class_subject_divider">#dfdfdf</color>
+    <!--覆盖颜色-->
+    <color name="bgColor_overlay">#60000000</color>
+    <!--透明度-->
+    <color name="draft_overlay">#80000000</color>
+    <color name="yjyx_content_bg">#efeff4</color>
+    <color name="shape_color_yellow">#f8c162</color>
+
+    <color name="class_subject_fill_divider">#ffcc00</color>
+
+    <color name="class_line_chart_red">#f75867</color>
+    <color name="circle_orange">#f29b76</color>
+    <color name="grayc4">#c4c4c4</color>
+    <color name="graycc">#cccccc</color>
+    <color name="grayd9">#d9d9d9</color>
+    <color name="grayf3">#f3f3f3</color>
+    <color name="grayee">#eeeeee</color>
+    <color name="gray33alpha">#66333333</color>
+    <color name="article_comment_teacher_name">#fca830</color>
+    <color name="article_comment_time">#cccccc</color>
+    <color name="article_comment_name">#4397ff</color>
+    <color name="message_content_color">#b2b2b2</color>
+    <color name="guide_bg">#33000000</color>
+    <color name="orange_d">#ffad39</color>
+    <color name="orange_1">#ff8212</color>
+    <color name="header_background">@color/yjyx_light_blue</color>
+    <color name="header_textcolor">@color/white</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="green_2ac187">#2ac187</color>
+    <color name="green_60">@color/colorPrimary2</color>
+    <color name="divider_color">@color/grayee</color>
+    <color name="green_41d3bd">#41d3bd</color>
+    <color name="renew_color">#ffe052</color>
+    <color name="member_bg">#F2F2F2</color>
+    <color name="member_red_bg">#f25f57</color>
+    <color name="article_share_color">#C9C9C9</color>
+    <color name="flow_comment_title_color">#ff795f</color>
+
+
+    <color name="app_page_color">#f3f3f3</color>
+    <color name="text_1">#2ad7be</color>
+    <color name="text_3">#333333</color>
+    <color name="text_6">#666666</color>
+    <color name="text_9">#999999</color>
+    <color name="text_c">#cccccc</color>
+    <color name="text_e">#eeeeee</color>
+
+</resources>

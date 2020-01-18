@@ -17,6 +17,7 @@ package com.acxca.ava.presentation.di.modules;
 
 import android.content.Context;
 
+import com.acxca.ava.service.api.DictionaryServiceImp;
 import com.acxca.ava.service.api.UserServiceImp;
 import com.acxca.ava.service.cache.UserCache;
 import com.acxca.ava.service.cache.UserCacheImpl;
@@ -27,6 +28,7 @@ import com.acxca.domain.executor.ThreadExecutor;
 import com.acxca.domain.repository.UserRepository;
 import com.acxca.ava.presentation.AndroidApplication;
 import com.acxca.ava.presentation.UIThread;
+import com.acxca.domain.service.DictionaryService;
 import com.acxca.domain.service.UserService;
 
 import dagger.Module;
@@ -66,5 +68,11 @@ public class ApplicationModule {
 
   @Provides @Singleton UserService provideUserService(UserServiceImp userServiceImp) {
     return userServiceImp;
+  }
+
+  @Provides
+  @Singleton
+  DictionaryService provideDictionaryService(DictionaryServiceImp dictionaryServiceImp) {
+    return dictionaryServiceImp;
   }
 }

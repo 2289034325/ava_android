@@ -21,6 +21,7 @@ import com.acxca.domain.executor.ThreadExecutor;
 import com.acxca.domain.repository.UserRepository;
 import com.acxca.ava.presentation.di.modules.ApplicationModule;
 import com.acxca.ava.presentation.view.activity.BaseActivity;
+import com.acxca.domain.service.DictionaryService;
 import com.acxca.domain.service.UserService;
 
 import dagger.Component;
@@ -40,4 +41,5 @@ public interface ApplicationComponent {
   PostExecutionThread postExecutionThread();
   UserRepository userRepository();
   UserService userService();
+  DictionaryService dictionaryService();
 }

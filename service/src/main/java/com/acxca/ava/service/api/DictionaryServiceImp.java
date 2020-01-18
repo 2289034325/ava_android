@@ -16,26 +16,20 @@
 package com.acxca.ava.service.api;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 
 import com.acxca.ava.service.ServiceConsts;
 import com.acxca.ava.service.ServiceUtil;
-import com.acxca.ava.service.entity.UserEntity;
 import com.acxca.ava.service.exception.NetworkConnectionException;
 import com.acxca.ava.service.net.ApiConnection;
 import com.acxca.ava.service.net.Method;
-import com.acxca.ava.service.net.RestApi;
+import com.acxca.domain.UserWordStat;
 import com.acxca.domain.repository.UserRepository;
-import com.acxca.domain.service.UserService;
+import com.acxca.domain.service.DictionaryService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.math.BigInteger;
-import java.net.MalformedURLException;
-import java.security.MessageDigest;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -47,56 +41,27 @@ import io.reactivex.Observable;
  * {@link UserRepository} for retrieving user data.
  */
 @Singleton
-public class UserServiceImp implements UserService {
+public class DictionaryServiceImp implements DictionaryService {
 
   private final Gson gson;
   private final ServiceUtil serviceUtil;
 
   @Inject
-  UserServiceImp(ServiceUtil serviceUtil) {
-    this.gson = new Gson();
+  DictionaryServiceImp(ServiceUtil serviceUtil) {
     this.serviceUtil = serviceUtil;
+    this.gson = new Gson();
   }
 
   @Override
-  public Observable<Map<String, String>> getKaptcha() {
+  public Observable<List<UserWordStat>> getWordStatList() {
     return Observable.create(emitter -> {
       if (serviceUtil.isThereInternetConnection()) {
         try {
-
-          String responseString =  ApiConnection.create(Method.GET,ServiceConsts.API_AUTH_KAPTCHA,null).call();
-
-          if (responseString != null) {
-            final Type responseType = new TypeToken<Map>() {}.getType();
-            Map m = this.gson.fromJson(responseString, responseType);
-            emitter.onNext(m);
-            emitter.onComplete();
-          } else {
-            emitter.onError(new NetworkConnectionException());
-          }
-        } catch (Exception e) {
-          emitter.onError(new NetworkConnectionException(e.getCause()));
-        }
-      } else {
-        emitter.onError(new NetworkConnectionException());
-      }
-    });
-  }
-
-  @Override
-  public Observable<String> login(String username,String password,String code,String ticket)
-  {
-    return Observable.create(emitter -> {
-      if (serviceUtil.isThereInternetConnection()) {
-        try {
-          Map<String,String> map = new HashMap<>();
-          map.put("username",username);
-          map.put("password",serviceUtil.getMD5(password));
-          String params = this.gson.toJson(map);
-          String responseString =  ApiConnection.create(Method.POST, ServiceConsts.API_AUTH_LOGIN,params).call();
+          String responseString =  ApiConnection.create(Method.GET,ServiceConsts.API_DIC_STAT_LIST,null).call();
 
           if (responseString != null) {
-            String m = this.gson.fromJson(responseString, String.class);
+            final Type responseType = new TypeToken<List<UserWordStat>>() {}.getType();
+            List<UserWordStat> m = this.gson.fromJson(responseString, responseType);
             emitter.onNext(m);
             emitter.onComplete();
           } else {

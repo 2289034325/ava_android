@@ -17,8 +17,6 @@ package com.acxca.ava.service;
 
 import android.content.Context;
 
-import com.fernandocejas.android10.sample.data.BuildConfig;
-
 import java.io.File;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
