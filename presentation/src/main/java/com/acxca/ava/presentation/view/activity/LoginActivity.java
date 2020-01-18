@@ -7,19 +7,23 @@ package com.acxca.ava.presentation.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Window;
 
+import com.acxca.ava.presentation.AndroidApplication;
+import com.acxca.ava.presentation.Consts;
 import com.acxca.ava.presentation.R;
 import com.acxca.ava.presentation.di.HasComponent;
 import com.acxca.ava.presentation.di.components.DaggerUserComponent;
 import com.acxca.ava.presentation.di.components.UserComponent;
+import com.acxca.ava.presentation.presenter.LoginPresenter;
 import com.acxca.ava.presentation.view.fragment.LoginFragment;
 
 /**
  * Activity that shows a list of Users.
  */
-public class LoginActivity extends BaseActivity implements HasComponent<UserComponent>{
+public class LoginActivity extends BaseActivity implements HasComponent<UserComponent>, LoginFragment.LoginEventListener {
 
   public static Intent getCallingIntent(Context context) {
     return new Intent(context, LoginActivity.class);
@@ -47,5 +51,18 @@ public class LoginActivity extends BaseActivity implements HasComponent<UserComp
 
   @Override public UserComponent getComponent() {
     return userComponent;
+  }
+
+  @Override
+  public void onSuccess(String token) {
+    AndroidApplication app =  (AndroidApplication) this.getApplicationContext();
+    app.shareBag.put(Consts.SB_KEY_TICKET,token);
+
+    SharedPreferences sp = getSharedPreferences(Consts.SP_NAME, 0);
+    SharedPreferences.Editor editor = sp.edit();
+    editor.putString(Consts.SP_KEY_TOKEN, token);
+    editor.apply();
+
+    this.navigator.navigateToMain(this);
   }
 }

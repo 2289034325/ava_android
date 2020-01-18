@@ -21,6 +21,9 @@ import com.acxca.ava.presentation.di.components.DaggerApplicationComponent;
 import com.acxca.ava.presentation.di.modules.ApplicationModule;
 import com.squareup.leakcanary.LeakCanary;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Android Main Application
  */
@@ -28,10 +31,15 @@ public class AndroidApplication extends Application {
 
   private ApplicationComponent applicationComponent;
 
+  // 全局变量存放
+  public Map<String,Object> shareBag;
+
   @Override public void onCreate() {
     super.onCreate();
     this.initializeInjector();
     this.initializeLeakDetection();
+
+    this.shareBag = new HashMap<>();
   }
 
   private void initializeInjector() {

@@ -16,11 +16,17 @@
 package com.acxca.ava.service.net;
 
 import android.support.annotation.Nullable;
+
+import com.acxca.ava.service.cache.serializer.Serializer;
+import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -34,15 +40,51 @@ public class ApiConnection implements Callable<String> {
   private static final String CONTENT_TYPE_LABEL = "Content-Type";
   private static final String CONTENT_TYPE_VALUE_JSON = "application/json; charset=utf-8";
 
-  private URL url;
+//  private URL url;
   private String response;
+  private Request request;
 
-  public ApiConnection(String url) throws MalformedURLException {
-    this.url = new URL(url);
-  }
+//  public ApiConnection(String url) throws MalformedURLException {
+//    this.url = new URL(url);
+//  }
 
-  public static ApiConnection createGET(String url) throws MalformedURLException {
-    return new ApiConnection(url);
+//  public static ApiConnection createGET(String url) throws MalformedURLException {
+//    ApiConnection ac = new ApiConnection();
+//    ac.request = new Request.Builder()
+//            .url(new URL(url))
+//            .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_VALUE_JSON)
+//            .get()
+//            .build();
+//
+//    return ac;
+//  }
+
+  public static ApiConnection create(Method method,String url,@Nullable String params) throws MalformedURLException {
+    RequestBody body = null;
+    if(params != null && !params.isEmpty()) {
+      MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+      body = RequestBody.create(JSON, params);
+    }
+
+    ApiConnection ac = new ApiConnection();
+    Request.Builder rb =  new Request.Builder()
+            .url(new URL(url))
+            .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_VALUE_JSON);
+
+    if(method == Method.GET){
+      ac.request = rb.get().build();
+    }
+    else if(method == Method.POST){
+      ac.request = rb.post(body).build();
+    }
+    else if(method == Method.PUT){
+      ac.request = rb.put(body).build();
+    }
+    else if(method == Method.DELETE){
+      ac.request = rb.delete(body).build();
+    }
+
+    return ac;
   }
 
   /**
@@ -51,26 +93,26 @@ public class ApiConnection implements Callable<String> {
    *
    * @return A string response
    */
-  @Nullable
-  public String requestSyncCall() {
-    connectToApi();
-    return response;
-  }
+//  @Nullable
+//  public String requestSyncCall() {
+//    connectToApi();
+//    return response;
+//  }
 
-  private void connectToApi() {
-    OkHttpClient okHttpClient = this.createClient();
-    final Request request = new Request.Builder()
-        .url(this.url)
-        .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_VALUE_JSON)
-        .get()
-        .build();
-
-    try {
-      this.response = okHttpClient.newCall(request).execute().body().string();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
+//  private void connectToApi() {
+//    OkHttpClient okHttpClient = this.createClient();
+//    final Request request = new Request.Builder()
+//        .url(this.url)
+//        .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_VALUE_JSON)
+//        .get()
+//        .build();
+//
+//    try {
+//      this.response = okHttpClient.newCall(request).execute().body().string();
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
+//  }
 
   private OkHttpClient createClient() {
     final OkHttpClient okHttpClient = new OkHttpClient();
@@ -81,6 +123,8 @@ public class ApiConnection implements Callable<String> {
   }
 
   @Override public String call() throws Exception {
-    return requestSyncCall();
+    OkHttpClient okHttpClient = this.createClient();
+    this.response = okHttpClient.newCall(request).execute().body().string();
+    return this.response;
   }
 }

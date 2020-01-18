@@ -29,4 +29,6 @@ public interface UserService {
    * Get an {@link Observable} which will emit a List of {@link User}.
    */
   Observable<Map<String,String>> getKaptcha();
+
+  Observable<String> login(String username,String password,String code,String ticket);
 }

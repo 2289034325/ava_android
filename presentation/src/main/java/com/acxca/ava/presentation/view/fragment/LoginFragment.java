@@ -15,9 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.acxca.ava.presentation.AndroidApplication;
+import com.acxca.ava.presentation.Consts;
 import com.acxca.ava.presentation.R;
 import com.acxca.ava.presentation.di.components.UserComponent;
 import com.acxca.ava.presentation.presenter.LoginPresenter;
@@ -34,6 +37,14 @@ import butterknife.OnClick;
  */
 public class LoginFragment extends BaseFragment implements LoginView {
 
+  /**
+   * Interface for listening user list events.
+   */
+  public interface LoginEventListener {
+    void onSuccess(String token);
+  }
+
+  private LoginEventListener loginEventListener;
 
   @Inject LoginPresenter loginPresenter;
 
@@ -42,12 +53,24 @@ public class LoginFragment extends BaseFragment implements LoginView {
   @Bind(R.id.rl_retry) RelativeLayout rl_retry;
   @Bind(R.id.bt_retry) Button bt_retry;
 
+  @Bind(R.id.txb_username)
+  EditText txb_username;
+  @Bind(R.id.txb_password)
+  EditText txb_password;
+  @Bind(R.id.txb_kaptcha)
+  EditText txb_kaptcha;
+
+
+
   public LoginFragment() {
     setRetainInstance(true);
   }
 
   @Override public void onAttach(Activity activity) {
     super.onAttach(activity);
+    if (activity instanceof LoginEventListener) {
+      this.loginEventListener = (LoginEventListener) activity;
+    }
   }
 
   @Override public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +89,7 @@ public class LoginFragment extends BaseFragment implements LoginView {
     super.onViewCreated(view, savedInstanceState);
     this.loginPresenter.setView(this);
     if (savedInstanceState == null) {
-      this.loadKaptcha();
+      this.loginPresenter.loadKaptcha();
     }
   }
 
@@ -92,7 +115,7 @@ public class LoginFragment extends BaseFragment implements LoginView {
 
   @Override public void onDetach() {
     super.onDetach();
-    this.loginPresenter = null;
+    this.loginEventListener = null;
   }
 
   @Override public void showLoading() {
@@ -121,23 +144,23 @@ public class LoginFragment extends BaseFragment implements LoginView {
     return this.getActivity().getApplicationContext();
   }
 
-  /**
-   * Loads all users.
-   */
-  private void loadKaptcha() {
-    this.loginPresenter.initialize();
-  }
-
   @OnClick(R.id.bt_retry) void onButtonRetryClick() {
-    LoginFragment.this.loadKaptcha();
+    this.loginPresenter.loadKaptcha();
   }
 
   @OnClick(R.id.img_kapatcha) void onKaptchaClick() {
-    LoginFragment.this.loadKaptcha();
+    this.loginPresenter.loadKaptcha();
   }
 
   @OnClick(R.id.btn_login) void onLoginClick() {
+    String username = txb_username.getText().toString();
+    String password = txb_password.getText().toString();
+    String code = txb_kaptcha.getText().toString();
 
+    AndroidApplication app = (AndroidApplication)context();
+    String ticket = app.shareBag.get(Consts.SB_KEY_TICKET).toString();
+
+    this.loginPresenter.login(username,password,code,ticket);
   }
 
   @Override
@@ -145,5 +168,10 @@ public class LoginFragment extends BaseFragment implements LoginView {
     byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     img_kapatcha.setImageBitmap(decodedByte);
+  }
+
+  @Override
+  public void onLoginSuccess(String token){
+    this.loginEventListener.onSuccess(token);
   }
 }

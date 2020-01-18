@@ -18,4 +18,6 @@ public interface LoginView extends LoadDataView {
    * @param imgString
    */
   void renderKaptcha(String imgString);
+
+  void onLoginSuccess(String token);
 }

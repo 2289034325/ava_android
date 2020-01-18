@@ -17,6 +17,8 @@ package com.acxca.ava.presentation.navigation;
 
 import android.content.Context;
 import android.content.Intent;
+
+import com.acxca.ava.presentation.view.activity.MainActivity;
 import com.acxca.ava.presentation.view.activity.UserDetailsActivity;
 import com.acxca.ava.presentation.view.activity.UserListActivity;
 import javax.inject.Inject;
@@ -53,6 +55,13 @@ public class Navigator {
   public void navigateToUserDetails(Context context, int userId) {
     if (context != null) {
       Intent intentToLaunch = UserDetailsActivity.getCallingIntent(context, userId);
+      context.startActivity(intentToLaunch);
+    }
+  }
+
+  public void navigateToMain(Context context) {
+    if (context != null) {
+      Intent intentToLaunch = MainActivity.getCallingIntent(context);
       context.startActivity(intentToLaunch);
     }
   }
