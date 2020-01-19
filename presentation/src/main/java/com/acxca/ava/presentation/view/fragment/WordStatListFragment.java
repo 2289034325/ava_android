@@ -46,7 +46,7 @@ public class WordStatListFragment extends BaseFragment implements WordStatListVi
    * Interface for listening user list events.
    */
   public interface WordStatListListener {
-    void onItemClicked();
+    void onWordStatItemClicked();
   }
 
   @Inject
@@ -80,7 +80,7 @@ public class WordStatListFragment extends BaseFragment implements WordStatListVi
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    final View fragmentView = inflater.inflate(R.layout.fragment_user_list, container, false);
+    final View fragmentView = inflater.inflate(R.layout.fragment_word_stat_list, container, false);
     ButterKnife.bind(this, fragmentView);
     setupRecyclerView();
     return fragmentView;
@@ -146,7 +146,7 @@ public class WordStatListFragment extends BaseFragment implements WordStatListVi
 
   @Override public void showMenu() {
     if (this.wordStatListListener != null) {
-      this.wordStatListListener.onItemClicked();
+      this.wordStatListListener.onWordStatItemClicked();
     }
   }
 

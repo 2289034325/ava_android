@@ -6,6 +6,8 @@ import android.net.NetworkInfo;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -14,10 +16,19 @@ import javax.inject.Singleton;
 public class ServiceUtil {
 
     private final Context context;
+    private final Map<String,Object> sharedBag;
 
     @Inject
-    public ServiceUtil(Context context) {
+    public ServiceUtil(Context context,Map<String,Object> sharedBag) {
         this.context = context;
+        this.sharedBag = sharedBag;
+    }
+
+    public Map<String,String> getTokenHeader(){
+        String token = sharedBag.get(ServiceConsts.SB_KEY_TOKEN).toString();
+        Map<String,String> header = new HashMap<>();
+        header.put(ServiceConsts.API_HEADER_AUTHORIZATION_TYPE_LABEL,"Bearer "+token);
+        return header;
     }
 
     public String getMD5(String str) {

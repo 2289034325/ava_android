@@ -18,7 +18,8 @@ package com.acxca.ava.presentation.activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
-import com.fernandocejas.android10.sample.presentation.R;
+
+import com.acxca.ava.presentation.R;
 import com.acxca.ava.presentation.view.activity.UserListActivity;
 
 import static org.hamcrest.CoreMatchers.is;

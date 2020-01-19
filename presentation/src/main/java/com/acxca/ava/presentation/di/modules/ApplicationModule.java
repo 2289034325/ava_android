@@ -31,6 +31,8 @@ import com.acxca.ava.presentation.UIThread;
 import com.acxca.domain.service.DictionaryService;
 import com.acxca.domain.service.UserService;
 
+import java.util.Map;
+
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -41,9 +43,15 @@ import javax.inject.Singleton;
 @Module
 public class ApplicationModule {
   private final AndroidApplication application;
+  private final Map<String,Object> sharedBag;
 
   public ApplicationModule(AndroidApplication application) {
     this.application = application;
+    this.sharedBag = application.sharedBag;
+  }
+
+  @Provides @Singleton Map<String,Object> getSharedBag(){
+    return this.sharedBag;
   }
 
   @Provides @Singleton Context provideApplicationContext() {

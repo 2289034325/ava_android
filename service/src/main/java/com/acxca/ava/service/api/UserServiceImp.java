@@ -64,7 +64,7 @@ public class UserServiceImp implements UserService {
       if (serviceUtil.isThereInternetConnection()) {
         try {
 
-          String responseString =  ApiConnection.create(Method.GET,ServiceConsts.API_AUTH_KAPTCHA,null).call();
+          String responseString =  ApiConnection.create(Method.GET,ServiceConsts.API_AUTH_KAPTCHA,null,null).call();
 
           if (responseString != null) {
             final Type responseType = new TypeToken<Map>() {}.getType();
@@ -93,7 +93,8 @@ public class UserServiceImp implements UserService {
           map.put("username",username);
           map.put("password",serviceUtil.getMD5(password));
           String params = this.gson.toJson(map);
-          String responseString =  ApiConnection.create(Method.POST, ServiceConsts.API_AUTH_LOGIN,params).call();
+          String url = String.format(ServiceConsts.API_AUTH_LOGIN,ticket,code);
+          String responseString =  ApiConnection.create(Method.POST, url,params,null).call();
 
           if (responseString != null) {
             String m = this.gson.fromJson(responseString, String.class);

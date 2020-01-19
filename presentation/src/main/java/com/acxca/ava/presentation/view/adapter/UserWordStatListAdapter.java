@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.acxca.ava.presentation.R;
+import com.acxca.ava.presentation.consts.Lang;
 import com.acxca.ava.presentation.model.UserModel;
 import com.acxca.domain.UserWordStat;
 
@@ -58,7 +59,7 @@ public class UserWordStatListAdapter extends RecyclerView.Adapter<UserWordStatLi
 
   @Override public void onBindViewHolder(ListViewHolder holder, final int position) {
     final UserWordStat item = this.items.get(position);
-    holder.textViewTitle.setText(item.getLang());
+    holder.textViewTitle.setText(Lang.fromId(item.getLang()).getName());
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         if (UserWordStatListAdapter.this.onItemClickListener != null) {
@@ -74,7 +75,7 @@ public class UserWordStatListAdapter extends RecyclerView.Adapter<UserWordStatLi
 
   public void setItems(List<UserWordStat> userWordStatList) {
     this.validateUsersCollection(userWordStatList);
-    this.items = (List<UserWordStat>) userWordStatList;
+    this.items = userWordStatList;
     this.notifyDataSetChanged();
   }
 

@@ -1,4 +1,4 @@
-package com.acxca.ava.presentation;
+package com.acxca.ava.presentation.consts;
 
 public class Consts {
     public static final String SP_NAME = "AVA";

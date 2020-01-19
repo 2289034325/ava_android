@@ -12,12 +12,11 @@ import android.os.Bundle;
 import android.view.Window;
 
 import com.acxca.ava.presentation.AndroidApplication;
-import com.acxca.ava.presentation.Consts;
+import com.acxca.ava.presentation.consts.Consts;
 import com.acxca.ava.presentation.R;
 import com.acxca.ava.presentation.di.HasComponent;
 import com.acxca.ava.presentation.di.components.DaggerUserComponent;
 import com.acxca.ava.presentation.di.components.UserComponent;
-import com.acxca.ava.presentation.presenter.LoginPresenter;
 import com.acxca.ava.presentation.view.fragment.LoginFragment;
 
 /**
@@ -56,7 +55,7 @@ public class LoginActivity extends BaseActivity implements HasComponent<UserComp
   @Override
   public void onSuccess(String token) {
     AndroidApplication app =  (AndroidApplication) this.getApplicationContext();
-    app.shareBag.put(Consts.SB_KEY_TICKET,token);
+    app.sharedBag.put(Consts.SB_KEY_TOKEN,token);
 
     SharedPreferences sp = getSharedPreferences(Consts.SP_NAME, 0);
     SharedPreferences.Editor editor = sp.edit();

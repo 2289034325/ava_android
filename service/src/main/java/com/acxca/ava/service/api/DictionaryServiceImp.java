@@ -26,6 +26,7 @@ import com.acxca.domain.UserWordStat;
 import com.acxca.domain.repository.UserRepository;
 import com.acxca.domain.service.DictionaryService;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -49,7 +50,7 @@ public class DictionaryServiceImp implements DictionaryService {
   @Inject
   DictionaryServiceImp(ServiceUtil serviceUtil) {
     this.serviceUtil = serviceUtil;
-    this.gson = new Gson();
+    this.gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
   }
 
   @Override
@@ -57,7 +58,8 @@ public class DictionaryServiceImp implements DictionaryService {
     return Observable.create(emitter -> {
       if (serviceUtil.isThereInternetConnection()) {
         try {
-          String responseString =  ApiConnection.create(Method.GET,ServiceConsts.API_DIC_STAT_LIST,null).call();
+          Map<String,String> tokenHeader = serviceUtil.getTokenHeader();
+          String responseString =  ApiConnection.create(Method.GET,ServiceConsts.API_DIC_STAT_LIST,null,tokenHeader).call();
 
           if (responseString != null) {
             final Type responseType = new TypeToken<List<UserWordStat>>() {}.getType();

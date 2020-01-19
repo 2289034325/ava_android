@@ -16,9 +16,10 @@
 package com.acxca.ava.presentation.exception;
 
 import android.test.AndroidTestCase;
+
+import com.acxca.ava.presentation.R;
 import com.acxca.ava.service.exception.NetworkConnectionException;
 import com.acxca.ava.service.exception.UserNotFoundException;
-import com.fernandocejas.android10.sample.presentation.R;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;

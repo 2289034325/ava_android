@@ -15,29 +15,20 @@
  */
 package com.acxca.ava.presentation.presenter;
 
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
 import com.acxca.ava.presentation.AndroidApplication;
-import com.acxca.ava.presentation.Consts;
+import com.acxca.ava.presentation.consts.Consts;
 import com.acxca.ava.presentation.di.PerActivity;
 import com.acxca.ava.presentation.exception.ErrorMessageFactory;
-import com.acxca.ava.presentation.mapper.UserModelDataMapper;
-import com.acxca.ava.presentation.model.UserModel;
 import com.acxca.ava.presentation.view.LoginView;
-import com.acxca.ava.presentation.view.UserListView;
-import com.acxca.ava.presentation.view.fragment.LoginFragment;
-import com.acxca.domain.User;
 import com.acxca.domain.exception.DefaultErrorBundle;
 import com.acxca.domain.exception.ErrorBundle;
 import com.acxca.domain.interactor.DefaultObserver;
 import com.acxca.domain.interactor.GetKaptcha;
-import com.acxca.domain.interactor.GetUserList;
 import com.acxca.domain.interactor.Login;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -142,7 +133,7 @@ public class LoginPresenter implements Presenter {
     @Override public void onNext(Map<String,String> kaptcha) {
       String ticket = kaptcha.get("ticket");
       AndroidApplication app =  (AndroidApplication)LoginPresenter.this.viewLoginView.context();
-      app.shareBag.put(Consts.SB_KEY_TICKET,ticket);
+      app.sharedBag.put(Consts.SB_KEY_TICKET,ticket);
 
       String img = kaptcha.get("img");
       LoginPresenter.this.renderImageInView(img);

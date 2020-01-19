@@ -32,14 +32,15 @@ public class AndroidApplication extends Application {
   private ApplicationComponent applicationComponent;
 
   // 全局变量存放
-  public Map<String,Object> shareBag;
+  public Map<String,Object> sharedBag;
 
   @Override public void onCreate() {
     super.onCreate();
+
+    this.sharedBag = new HashMap<>();
+
     this.initializeInjector();
     this.initializeLeakDetection();
-
-    this.shareBag = new HashMap<>();
   }
 
   private void initializeInjector() {

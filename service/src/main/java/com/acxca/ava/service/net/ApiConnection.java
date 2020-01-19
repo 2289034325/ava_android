@@ -17,11 +17,14 @@ package com.acxca.ava.service.net;
 
 import android.support.annotation.Nullable;
 
+import com.acxca.ava.service.ServiceConsts;
 import com.acxca.ava.service.cache.serializer.Serializer;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -37,11 +40,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class ApiConnection implements Callable<String> {
 
-  private static final String CONTENT_TYPE_LABEL = "Content-Type";
-  private static final String CONTENT_TYPE_VALUE_JSON = "application/json; charset=utf-8";
 
 //  private URL url;
   private String response;
+  private Request.Builder builder;
   private Request request;
 
 //  public ApiConnection(String url) throws MalformedURLException {
@@ -59,17 +61,21 @@ public class ApiConnection implements Callable<String> {
 //    return ac;
 //  }
 
-  public static ApiConnection create(Method method,String url,@Nullable String params) throws MalformedURLException {
+  public static ApiConnection create(Method method,String url,@Nullable String params,@Nullable Map<String,String> headers) throws MalformedURLException {
     RequestBody body = null;
     if(params != null && !params.isEmpty()) {
-      MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+      MediaType JSON = MediaType.parse(ServiceConsts.API_HEADER_CONTENT_TYPE_VALUE_JSON);
       body = RequestBody.create(JSON, params);
     }
 
     ApiConnection ac = new ApiConnection();
     Request.Builder rb =  new Request.Builder()
             .url(new URL(url))
-            .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_VALUE_JSON);
+            .addHeader(ServiceConsts.API_HEADER_CONTENT_TYPE_LABEL, ServiceConsts.API_HEADER_CONTENT_TYPE_VALUE_JSON);
+
+    for (Map.Entry<String, String> entry : headers.entrySet()) {
+      rb = rb.addHeader(entry.getKey(),entry.getValue());
+    }
 
     if(method == Method.GET){
       ac.request = rb.get().build();
@@ -85,6 +91,15 @@ public class ApiConnection implements Callable<String> {
     }
 
     return ac;
+  }
+
+  public ApiConnection addHeaders(Map<String,String> headers){
+    for (Map.Entry<String, String> entry : headers.entrySet()) {
+      builder = builder.addHeader(entry.getKey(),entry.getValue());
+      request = builder.build();
+    }
+
+    return this;
   }
 
   /**

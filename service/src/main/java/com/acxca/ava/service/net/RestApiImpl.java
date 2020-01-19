@@ -90,12 +90,12 @@ public class RestApiImpl implements RestApi {
   }
 
   private String getUserEntitiesFromApi() throws Exception {
-    return ApiConnection.create(Method.GET,API_URL_GET_USER_LIST,null).call();
+    return ApiConnection.create(Method.GET,API_URL_GET_USER_LIST,null,null).call();
   }
 
   private String getUserDetailsFromApi(int userId) throws Exception {
     String apiUrl = API_URL_GET_USER_DETAILS + userId + ".json";
-    return ApiConnection.create(Method.GET,apiUrl,null).call();
+    return ApiConnection.create(Method.GET,apiUrl,null,null).call();
   }
 
   /**

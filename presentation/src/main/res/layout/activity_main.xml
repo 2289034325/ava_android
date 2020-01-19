@@ -31,8 +31,8 @@
         app:layout_constraintEnd_toStartOf="@+id/tv_knowledge"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:tabDrawable="@drawable/ic_vocabulary"
-        app:tabTitle="voc" />
+        app:tabDrawable="@drawable/ic_vocab"
+        app:tabTitle="词汇" />
 
     <com.acxca.ava.presentation.view.TabView
         android:id="@+id/tv_knowledge"
@@ -43,21 +43,24 @@
         app:layout_constraintEnd_toStartOf="@+id/iv_take"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_homework"
-        app:tabDrawable="@drawable/ic_vocabulary"
-        app:tabTitle="study" />
+        app:tabDrawable="@drawable/ic_speech"
+        app:tabTitle="会话" />
 
-
-    <ImageView
-        android:id="@+id/iv_take"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@drawable/ic_vocabulary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_news"
-        app:layout_constraintStart_toEndOf="@+id/tv_knowledge" />
 
     <com.acxca.ava.presentation.view.TabView
-        android:id="@+id/tv_news"
+        android:id="@+id/iv_take"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        app:tabDrawable="@drawable/ic_write"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_bookmark"
+        app:layout_constraintStart_toEndOf="@+id/tv_knowledge"
+        app:tabTitle="写作" />
+
+    <com.acxca.ava.presentation.view.TabView
+        android:id="@+id/tv_bookmark"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:gravity="center"
@@ -65,8 +68,8 @@
         app:layout_constraintEnd_toStartOf="@+id/tv_me"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/iv_take"
-        app:tabDrawable="@drawable/ic_vocabulary"
-        app:tabTitle="hot_news" />
+        app:tabDrawable="@drawable/ic_bookmark"
+        app:tabTitle="书签" />
 
     <com.acxca.ava.presentation.view.TabView
         android:id="@+id/tv_me"
@@ -76,9 +79,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_news"
-        app:tabDrawable="@drawable/ic_vocabulary"
-        app:tabTitle="my_center" />
+        app:layout_constraintStart_toEndOf="@+id/tv_bookmark"
+        app:tabDrawable="@drawable/ic_me"
+        app:tabTitle="我" />
 
 
 </android.support.constraint.ConstraintLayout>

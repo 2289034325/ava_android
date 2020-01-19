@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.acxca.ava.presentation.AndroidApplication;
-import com.acxca.ava.presentation.Consts;
+import com.acxca.ava.presentation.consts.Consts;
 import com.acxca.ava.presentation.R;
 import com.acxca.ava.presentation.di.components.UserComponent;
 import com.acxca.ava.presentation.presenter.LoginPresenter;
@@ -158,7 +158,7 @@ public class LoginFragment extends BaseFragment implements LoginView {
     String code = txb_kaptcha.getText().toString();
 
     AndroidApplication app = (AndroidApplication)context();
-    String ticket = app.shareBag.get(Consts.SB_KEY_TICKET).toString();
+    String ticket = app.sharedBag.get(Consts.SB_KEY_TICKET).toString();
 
     this.loginPresenter.login(username,password,code,ticket);
   }
