@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import com.acxca.ava.presentation.AndroidApplication;
 import com.acxca.ava.presentation.consts.Consts;
@@ -52,6 +53,8 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
             app.sharedBag.put(Consts.SB_KEY_TOKEN,token);
 
             setContentView(R.layout.activity_main);
+            findViewById(R.id.iv_back).setVisibility(View.GONE);
+
             addFragment(R.id.container, new WordStatListFragment());
         }
     }

@@ -1,87 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_homework"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include layout="@layout/layout_actionbar" />
 
-    <View
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#eeeeee"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container" />
-
-    <com.acxca.ava.presentation.view.TabView
-        android:id="@+id/tv_homework"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_knowledge"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tabDrawable="@drawable/ic_vocab"
-        app:tabTitle="词汇" />
-
-    <com.acxca.ava.presentation.view.TabView
-        android:id="@+id/tv_knowledge"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/iv_take"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_homework"
-        app:tabDrawable="@drawable/ic_speech"
-        app:tabTitle="会话" />
+        android:layout_height="match_parent">
 
 
-    <com.acxca.ava.presentation.view.TabView
-        android:id="@+id/iv_take"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:gravity="center"
-        app:tabDrawable="@drawable/ic_write"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_bookmark"
-        app:layout_constraintStart_toEndOf="@+id/tv_knowledge"
-        app:tabTitle="写作" />
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_homework"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.acxca.ava.presentation.view.TabView
-        android:id="@+id/tv_bookmark"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_me"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/iv_take"
-        app:tabDrawable="@drawable/ic_bookmark"
-        app:tabTitle="书签" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eeeeee"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container" />
 
-    <com.acxca.ava.presentation.view.TabView
-        android:id="@+id/tv_me"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_bookmark"
-        app:tabDrawable="@drawable/ic_me"
-        app:tabTitle="我" />
+        <com.acxca.ava.presentation.view.TabView
+            android:id="@+id/tv_homework"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_knowledge"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabDrawable="@drawable/ic_vocab"
+            app:tabTitle="词汇" />
 
+        <com.acxca.ava.presentation.view.TabView
+            android:id="@+id/tv_knowledge"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_take"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_homework"
+            app:tabDrawable="@drawable/ic_speech"
+            app:tabTitle="会话" />
 
-</android.support.constraint.ConstraintLayout>
+        <com.acxca.ava.presentation.view.TabView
+            android:id="@+id/iv_take"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_bookmark"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_knowledge"
+            app:tabDrawable="@drawable/ic_write"
+            app:tabTitle="写作" />
+
+        <com.acxca.ava.presentation.view.TabView
+            android:id="@+id/tv_bookmark"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_me"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_take"
+            app:tabDrawable="@drawable/ic_bookmark"
+            app:tabTitle="书签" />
+
+        <com.acxca.ava.presentation.view.TabView
+            android:id="@+id/tv_me"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_bookmark"
+            app:tabDrawable="@drawable/ic_me"
+            app:tabTitle="我" />
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

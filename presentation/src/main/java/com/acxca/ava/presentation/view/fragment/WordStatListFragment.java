@@ -14,21 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.acxca.ava.presentation.R;
 import com.acxca.ava.presentation.di.components.DictionaryComponent;
-import com.acxca.ava.presentation.di.components.UserComponent;
-import com.acxca.ava.presentation.model.UserModel;
-import com.acxca.ava.presentation.presenter.UserListPresenter;
 import com.acxca.ava.presentation.presenter.WordStatListPresenter;
-import com.acxca.ava.presentation.view.UserListView;
 import com.acxca.ava.presentation.view.WordStatListView;
 import com.acxca.ava.presentation.view.adapter.UserWordStatListAdapter;
-import com.acxca.ava.presentation.view.adapter.UsersAdapter;
 import com.acxca.ava.presentation.view.adapter.UsersLayoutManager;
 import com.acxca.domain.UserWordStat;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -76,6 +71,9 @@ public class WordStatListFragment extends BaseFragment implements WordStatListVi
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     this.getComponent(DictionaryComponent.class).inject(this);
+
+    TextView title = (TextView) getActivity().findViewById(R.id.tv_title);
+    title.setText("词汇");
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,

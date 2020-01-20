@@ -2,9 +2,9 @@ package com.acxca.ava.presentation.consts;
 
 public enum Lang {
     EN(1,"English"),
-    JP(2,"Japanese"),
-    KR(3,"Korean"),
-    FR(4,"French");
+    JP(2,"日本語"),
+    KR(3,"한국어"),
+    FR(4,"Français");
 
     private int id;
     private String name;
