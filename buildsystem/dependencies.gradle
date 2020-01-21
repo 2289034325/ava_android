@@ -7,15 +7,17 @@ allprojects {
 
 ext {
   //Android
-  androidBuildToolsVersion = "24.0.1"
-  androidMinSdkVersion = 15
-  androidTargetSdkVersion = 21
-  androidCompileSdkVersion = 21
+  androidBuildToolsVersion = "26.0.2"
+  androidMinSdkVersion = 16
+  androidTargetSdkVersion = 26
+  androidCompileSdkVersion = 26
 
   //Libraries
   daggerVersion = '2.8'
   butterKnifeVersion = '7.0.1'
-  recyclerViewVersion = '21.0.3'
+  recyclerViewVersion = '26.1.0'
+  designVersion = '26.1.0'
+  compatVersion = '26.1.0'
   rxJavaVersion = '2.0.2'
   rxAndroidVersion = '2.0.1'
   javaxAnnotationVersion = '1.0'
@@ -46,7 +48,9 @@ ext {
       rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
       rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
       javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-      constraintLayout:   "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}"
+      constraintLayout:   "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
+      design:             "com.android.support:design:${designVersion}",
+      appCompat:          "com.android.support:appcompat-v7:${compatVersion}"
   ]
 
   presentationTestDependencies = [

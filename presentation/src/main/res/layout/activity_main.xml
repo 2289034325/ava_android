@@ -30,7 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/container" />
 
-        <com.acxca.ava.presentation.view.TabView
+        <com.acxca.ava.presentation.view.component.TabView
             android:id="@+id/tv_homework"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -42,7 +42,7 @@
             app:tabDrawable="@drawable/ic_vocab"
             app:tabTitle="词汇" />
 
-        <com.acxca.ava.presentation.view.TabView
+        <com.acxca.ava.presentation.view.component.TabView
             android:id="@+id/tv_knowledge"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -54,7 +54,7 @@
             app:tabDrawable="@drawable/ic_speech"
             app:tabTitle="会话" />
 
-        <com.acxca.ava.presentation.view.TabView
+        <com.acxca.ava.presentation.view.component.TabView
             android:id="@+id/iv_take"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -66,7 +66,7 @@
             app:tabDrawable="@drawable/ic_write"
             app:tabTitle="写作" />
 
-        <com.acxca.ava.presentation.view.TabView
+        <com.acxca.ava.presentation.view.component.TabView
             android:id="@+id/tv_bookmark"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -78,7 +78,7 @@
             app:tabDrawable="@drawable/ic_bookmark"
             app:tabTitle="书签" />
 
-        <com.acxca.ava.presentation.view.TabView
+        <com.acxca.ava.presentation.view.component.TabView
             android:id="@+id/tv_me"
             android:layout_width="0dp"
             android:layout_height="48dp"

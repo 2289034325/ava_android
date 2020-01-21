@@ -1,4 +1,4 @@
-package com.acxca.ava.presentation.view;
+package com.acxca.ava.presentation.view.component;
 
 import android.content.Context;
 import android.content.res.TypedArray;

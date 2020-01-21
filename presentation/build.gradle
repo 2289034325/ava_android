@@ -69,6 +69,8 @@ dependencies {
   compile presentationDependencies.dagger
   compile presentationDependencies.butterKnife
   compile presentationDependencies.recyclerView
+  compile presentationDependencies.design
+  compile presentationDependencies.appCompat
   compile presentationDependencies.rxJava
   compile presentationDependencies.rxAndroid
   provided presentationDependencies.javaxAnnotation

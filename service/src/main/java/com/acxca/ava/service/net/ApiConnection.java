@@ -73,8 +73,10 @@ public class ApiConnection implements Callable<String> {
             .url(new URL(url))
             .addHeader(ServiceConsts.API_HEADER_CONTENT_TYPE_LABEL, ServiceConsts.API_HEADER_CONTENT_TYPE_VALUE_JSON);
 
-    for (Map.Entry<String, String> entry : headers.entrySet()) {
-      rb = rb.addHeader(entry.getKey(),entry.getValue());
+    if(headers != null) {
+      for (Map.Entry<String, String> entry : headers.entrySet()) {
+        rb = rb.addHeader(entry.getKey(), entry.getValue());
+      }
     }
 
     if(method == Method.GET){
