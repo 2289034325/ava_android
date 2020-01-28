@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_vocabulary" />
+        tools:src="@drawable/ic_vocab" />
 
     <TextView
         android:id="@+id/tv_title"

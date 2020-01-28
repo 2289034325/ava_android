@@ -1,9 +1,10 @@
 package com.acxca.ava.presentation.view.activity;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
    * @param fragment The fragment to be added.
    */
   protected void addFragment(int containerViewId, Fragment fragment) {
-    final FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
+    final FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
     fragmentTransaction.add(containerViewId, fragment);
     fragmentTransaction.commit();
   }

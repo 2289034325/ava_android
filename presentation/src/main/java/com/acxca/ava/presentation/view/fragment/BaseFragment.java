@@ -5,7 +5,7 @@
  */
 package com.acxca.ava.presentation.view.fragment;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.widget.Toast;
 import com.acxca.ava.presentation.di.HasComponent;
 
