@@ -19,6 +19,7 @@ import com.acxca.ava.presentation.di.PerActivity;
 import com.acxca.ava.presentation.di.modules.ActivityModule;
 import com.acxca.ava.presentation.di.modules.DictionaryModule;
 import com.acxca.ava.presentation.di.modules.ReadingModule;
+import com.acxca.ava.presentation.view.fragment.BookMarkListFragment;
 import com.acxca.ava.presentation.view.fragment.ReadingFragment;
 import com.acxca.ava.presentation.view.fragment.WordStatListFragment;
 
@@ -31,5 +32,6 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, ReadingModule.class})
 public interface ReadingComponent extends ActivityComponent {
+  void inject(BookMarkListFragment bookMarkListFragment);
   void inject(ReadingFragment readingFragment);
 }

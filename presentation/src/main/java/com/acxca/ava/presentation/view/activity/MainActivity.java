@@ -20,6 +20,7 @@ import com.acxca.ava.presentation.di.HasComponent;
 import com.acxca.ava.presentation.di.components.DaggerDictionaryComponent;
 import com.acxca.ava.presentation.di.components.DictionaryComponent;
 import com.acxca.ava.presentation.view.component.TabView;
+import com.acxca.ava.presentation.view.fragment.BookMarkListFragment;
 import com.acxca.ava.presentation.view.fragment.ChooseCountDialogFragment;
 import com.acxca.ava.presentation.view.fragment.ReadingFragment;
 import com.acxca.ava.presentation.view.fragment.TranslateDialogFragment;
@@ -49,7 +50,7 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
     private FragmentManager fm;
     private Fragment mCurrentFragment;
     private WordStatListFragment wordStatListFragment;
-    private ReadingFragment readingFragment;
+    private BookMarkListFragment bookMarkListFragment;
 
     @Bind(R.id.tv_vocab) TabView tvVocab;
     @Bind(R.id.tv_speech) TabView tvSpeech;
@@ -93,10 +94,10 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
 
 
             wordStatListFragment = new WordStatListFragment();
-            readingFragment = new ReadingFragment();
+            bookMarkListFragment = new BookMarkListFragment();
 
             mCurrentFragment = wordStatListFragment;
-            ft.add(R.id.container, wordStatListFragment, "frg_voc").add(R.id.container, readingFragment, "frg_reading").hide(readingFragment).show(wordStatListFragment).commit();
+            ft.add(R.id.container, wordStatListFragment, "frg_voc").add(R.id.container, bookMarkListFragment, "frg_bookmark").hide(bookMarkListFragment).show(wordStatListFragment).commit();
 //            addFragment(R.id.container, new WordStatListFragment());
         }
     }
@@ -110,58 +111,58 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
     void gotoBookMark() {
 
         // 隐藏actionbar和tab
-        findViewById(R.id.action_bar_container).setVisibility(View.GONE);
-        findViewById(R.id.cl_tab).setVisibility(View.GONE);
+//        findViewById(R.id.action_bar_container).setVisibility(View.GONE);
+//        findViewById(R.id.cl_tab).setVisibility(View.GONE);
 
         FragmentTransaction ft = fm.beginTransaction();
-        ft.hide(mCurrentFragment).show(readingFragment).commit();
+        ft.hide(mCurrentFragment).show(bookMarkListFragment).commit();
 
-        mCurrentFragment = readingFragment;
+        mCurrentFragment = bookMarkListFragment;
     }
 
-    @Override
-    public void onActionModeStarted(ActionMode mode) {
-        if (mActionMode == null) {
-            mActionMode = mode;
+//    @Override
+//    public void onActionModeStarted(ActionMode mode) {
+//        if (mActionMode == null) {
+//            mActionMode = mode;
+////            Menu menu = mode.getMenu();
+////            // Remove the default menu items (select all, copy, paste, search)
+////            menu.clear();
+////
+////            // If you want to keep any of the defaults,
+////            // remove the items you don't want individually:
+////            // menu.removeItem(android.R.id.[id_of_item_to_remove])
+////
+////            // Inflate your own menu items
+////            mode.getMenuInflater().inflate(R.menu.menu_reading, menu);
+//
+//            MenuInflater menuInflater = mode.getMenuInflater();
 //            Menu menu = mode.getMenu();
-//            // Remove the default menu items (select all, copy, paste, search)
+//
 //            menu.clear();
+//            menuInflater.inflate(R.menu.menu_reading, menu);
 //
-//            // If you want to keep any of the defaults,
-//            // remove the items you don't want individually:
-//            // menu.removeItem(android.R.id.[id_of_item_to_remove])
+//            menu.findItem(R.id.mni_ava).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener(){
+//                @Override
+//                public boolean onMenuItemClick(MenuItem item) {
+//                    readingFragment.startSearchWord(1,"duo");
+////                    TranslateDialogFragment fragment = new TranslateDialogFragment();
+////                    fragment.init(MainActivity.this,getSupportFragmentManager(),"reading");
+////                    fragment.show();
 //
-//            // Inflate your own menu items
-//            mode.getMenuInflater().inflate(R.menu.menu_reading, menu);
-
-            MenuInflater menuInflater = mode.getMenuInflater();
-            Menu menu = mode.getMenu();
-
-            menu.clear();
-            menuInflater.inflate(R.menu.menu_reading, menu);
-
-            menu.findItem(R.id.mni_ava).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener(){
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    readingFragment.startSearchWord(1,"duo");
-//                    TranslateDialogFragment fragment = new TranslateDialogFragment();
-//                    fragment.init(MainActivity.this,getSupportFragmentManager(),"reading");
-//                    fragment.show();
-
-                    return true;
-                }
-            });
-            menu.findItem(R.id.mni_ggl).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener(){
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    showToastMessage("ggl");
-                    return true;
-                }
-            });
-        }
-
-        super.onActionModeStarted(mode);
-    }
+//                    return true;
+//                }
+//            });
+//            menu.findItem(R.id.mni_ggl).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener(){
+//                @Override
+//                public boolean onMenuItemClick(MenuItem item) {
+//                    showToastMessage("ggl");
+//                    return true;
+//                }
+//            });
+//        }
+//
+//        super.onActionModeStarted(mode);
+//    }
 
     @Override
     public void onActionModeFinished(ActionMode mode) {

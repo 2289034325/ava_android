@@ -15,6 +15,7 @@
  */
 package com.acxca.domain.service;
 
+import com.acxca.domain.BookMark;
 import com.acxca.domain.User;
 import com.acxca.domain.UserWordStat;
 import com.acxca.domain.Word;
@@ -29,4 +30,6 @@ import io.reactivex.Observable;
 public interface ReadingService {
 
     Observable<Word> searchWord(int lang,String form);
+
+    Observable<List<BookMark>> getBookMarkList();
 }

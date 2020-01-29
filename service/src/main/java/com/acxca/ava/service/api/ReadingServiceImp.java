@@ -20,6 +20,7 @@ import com.acxca.ava.service.ServiceUtil;
 import com.acxca.ava.service.exception.NetworkConnectionException;
 import com.acxca.ava.service.net.ApiConnection;
 import com.acxca.ava.service.net.Method;
+import com.acxca.domain.BookMark;
 import com.acxca.domain.UserWordStat;
 import com.acxca.domain.Word;
 import com.acxca.domain.repository.UserRepository;
@@ -68,6 +69,32 @@ public class ReadingServiceImp implements ReadingService {
             Map m = this.gson.fromJson(responseString, responseType);
             Word w = this.gson.fromJson(this.gson.toJson(m.get("word")),Word.class);
             emitter.onNext(w);
+            emitter.onComplete();
+          } else {
+            emitter.onError(new NetworkConnectionException());
+          }
+        } catch (Exception e) {
+          emitter.onError(new NetworkConnectionException(e.getCause()));
+        }
+      } else {
+        emitter.onError(new NetworkConnectionException());
+      }
+    });
+  }
+
+
+  @Override
+  public Observable<List<BookMark>> getBookMarkList() {
+    return Observable.create(emitter -> {
+      if (serviceUtil.isThereInternetConnection()) {
+        try {
+          Map<String,String> tokenHeader = serviceUtil.getTokenHeader();
+          String responseString =  ApiConnection.create(Method.GET,ServiceConsts.API_READ_BOOKMARK_LIST,null,tokenHeader).call();
+
+          if (responseString != null) {
+            final Type responseType = new TypeToken<List<BookMark>>() {}.getType();
+            List<BookMark> bms = this.gson.fromJson(responseString, responseType);
+            emitter.onNext(bms);
             emitter.onComplete();
           } else {
             emitter.onError(new NetworkConnectionException());
