@@ -52,6 +52,7 @@ import butterknife.OnClick;
  * Fragment that shows a list of Users.
  */
 public class ReadingFragment extends BaseFragment implements ReadingView, HasComponent<ReadingComponent> {
+  private static final String PARAM_URL = "param_url";
 
   public interface ServiceResultListener {
     void onSentenceResult(String meaning);
@@ -71,6 +72,14 @@ public class ReadingFragment extends BaseFragment implements ReadingView, HasCom
 
   public ReadingFragment() {
     setRetainInstance(true);
+  }
+
+  public static ReadingFragment getInstance(String url) {
+    final ReadingFragment readingFragment = new ReadingFragment();
+    final Bundle arguments = new Bundle();
+    arguments.putString(PARAM_URL, url);
+    readingFragment.setArguments(arguments);
+    return readingFragment;
   }
 
   @Override public void onAttach(Activity activity) {
@@ -94,8 +103,8 @@ public class ReadingFragment extends BaseFragment implements ReadingView, HasCom
     this.readingComponent.inject(this);
 //    this.getComponent(ReadingComponent.class).inject(this);
 
-    TextView title = getActivity().findViewById(R.id.tv_title);
-    title.setText("阅读");
+//    TextView title = getActivity().findViewById(R.id.tv_title);
+//    title.setText("阅读");
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,6 +121,12 @@ public class ReadingFragment extends BaseFragment implements ReadingView, HasCom
     });
     webView.getSettings().setJavaScriptEnabled(true);
 
+    Bundle bundle = this.getArguments();
+    if (bundle != null) {
+      String url = bundle.getString(PARAM_URL);
+      txbUrl.setText(url);
+      webView.loadUrl(url);
+    }
 //    setupRecyclerView();
     return fragmentView;
   }

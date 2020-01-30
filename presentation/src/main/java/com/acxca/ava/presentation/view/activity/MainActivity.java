@@ -39,7 +39,7 @@ import butterknife.OnClick;
  * Main application screen. This is the app entry point.
  */
 public class MainActivity extends BaseActivity implements HasComponent<DictionaryComponent>,
-        WordStatListFragment.WordStatListListener,ReadingFragment.ServiceResultListener{
+        WordStatListFragment.WordStatListListener,BookMarkListFragment.BookMarkListListener{
 
     public static Intent getCallingIntent(Context context) {
         Intent callingIntent = new Intent(context, MainActivity.class);
@@ -120,55 +120,6 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
         mCurrentFragment = bookMarkListFragment;
     }
 
-//    @Override
-//    public void onActionModeStarted(ActionMode mode) {
-//        if (mActionMode == null) {
-//            mActionMode = mode;
-////            Menu menu = mode.getMenu();
-////            // Remove the default menu items (select all, copy, paste, search)
-////            menu.clear();
-////
-////            // If you want to keep any of the defaults,
-////            // remove the items you don't want individually:
-////            // menu.removeItem(android.R.id.[id_of_item_to_remove])
-////
-////            // Inflate your own menu items
-////            mode.getMenuInflater().inflate(R.menu.menu_reading, menu);
-//
-//            MenuInflater menuInflater = mode.getMenuInflater();
-//            Menu menu = mode.getMenu();
-//
-//            menu.clear();
-//            menuInflater.inflate(R.menu.menu_reading, menu);
-//
-//            menu.findItem(R.id.mni_ava).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener(){
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    readingFragment.startSearchWord(1,"duo");
-////                    TranslateDialogFragment fragment = new TranslateDialogFragment();
-////                    fragment.init(MainActivity.this,getSupportFragmentManager(),"reading");
-////                    fragment.show();
-//
-//                    return true;
-//                }
-//            });
-//            menu.findItem(R.id.mni_ggl).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener(){
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    showToastMessage("ggl");
-//                    return true;
-//                }
-//            });
-//        }
-//
-//        super.onActionModeStarted(mode);
-//    }
-
-    @Override
-    public void onActionModeFinished(ActionMode mode) {
-        mActionMode = null;
-        super.onActionModeFinished(mode);
-    }
 
     @Override
     public void onWordStatItemClicked() {
@@ -216,18 +167,9 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
     }
 
     @Override
-    public void onSentenceResult(String meaning) {
-        TranslateDialogFragment fragment = new TranslateDialogFragment();
-        fragment.init(MainActivity.this,getSupportFragmentManager(),"read");
-        fragment.show();
-    }
-
-    @Override
-    public void onWordResult(Word w) {
-        TranslateDialogFragment fragment = new TranslateDialogFragment();
-                    fragment.init(MainActivity.this,getSupportFragmentManager(),"reading");
-                    fragment.setWord(w);
-
-                    fragment.show();
+    public void onBookMarkItemClicked(String url) {
+        Context context = this;
+        Intent intentToLaunch = ReadingActivity.getCallingIntent(context, url);
+        context.startActivity(intentToLaunch);
     }
 }

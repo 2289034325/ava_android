@@ -68,7 +68,7 @@ public class BookMarkListFragment extends BaseFragment implements BookMarkListVi
    * Interface for listening user list events.
    */
   public interface BookMarkListListener {
-    void onBookMarkItemClicked();
+    void onBookMarkItemClicked(String url);
   }
 
   @Inject
@@ -192,6 +192,7 @@ public class BookMarkListFragment extends BaseFragment implements BookMarkListVi
       new BookMarkListAdapter.OnItemClickListener() {
         @Override public void onItemClicked(BookMark bookMark) {
           if (BookMarkListFragment.this.bookMarkListPresenter != null && bookMark != null) {
+            BookMarkListFragment.this.bookMarkListListener.onBookMarkItemClicked(bookMark.getUrl());
             BookMarkListFragment.this.bookMarkListPresenter.onItemClicked(bookMark);
           }
         }

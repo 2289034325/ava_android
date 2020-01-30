@@ -32,6 +32,7 @@
             android:name=".view.activity.UserDetailsActivity"
             android:label="@string/activity_title_user_details" />
         <activity android:name=".view.activity.LoginActivity" />
+        <activity android:name=".view.activity.ReadingActivity" />
     </application>
 
 </manifest>
