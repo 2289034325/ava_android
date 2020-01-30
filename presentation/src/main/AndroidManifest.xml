@@ -32,7 +32,10 @@
             android:name=".view.activity.UserDetailsActivity"
             android:label="@string/activity_title_user_details" />
         <activity android:name=".view.activity.LoginActivity" />
-        <activity android:name=".view.activity.ReadingActivity" />
+        <activity android:name=".view.activity.ReadingActivity"
+            android:theme="@style/NoActionBar_FullScreen"
+            android:windowSoftInputMode="adjustResize"
+            />
     </application>
 
 </manifest>

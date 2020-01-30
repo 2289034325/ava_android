@@ -70,6 +70,7 @@ dependencies {
   compile presentationDependencies.butterKnife
   compile presentationDependencies.recyclerView
   compile presentationDependencies.design
+  compile presentationDependencies.cardview
   compile presentationDependencies.appCompat
   compile presentationDependencies.rxJava
   compile presentationDependencies.rxAndroid

@@ -43,4 +43,11 @@
     <item name="colorControlNormal">@color/grayd9</item>
   </style>
 
+  <style name="NoActionBar_FullScreen" parent="@style/Theme.AppCompat.NoActionBar">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowActionBar">false</item>
+    <item name="android:windowFullscreen">true</item>
+    <item name="android:windowContentOverlay">@null</item>
+  </style>
+
 </resources>
