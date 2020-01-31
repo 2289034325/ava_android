@@ -34,4 +34,21 @@ public enum Lang {
         }
     }
 
+    public Lang next(){
+        switch (id) {
+            case 1:
+                return JP;
+            case 2:
+                return KR;
+            case 3:
+                return FR;
+            case 4:
+                return EN;
+            default:
+                return EN;
+        }
+    }
+
+
+
 }
