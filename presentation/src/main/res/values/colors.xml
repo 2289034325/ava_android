@@ -90,4 +90,6 @@
     <color name="text_c">#cccccc</color>
     <color name="text_e">#eeeeee</color>
 
+    <color name="row_spliter">#9B9B9B</color>
+
 </resources>

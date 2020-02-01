@@ -23,6 +23,7 @@ import com.acxca.ava.presentation.di.components.DictionaryComponent;
 import com.acxca.ava.presentation.view.component.TabView;
 import com.acxca.ava.presentation.view.fragment.BookMarkListFragment;
 import com.acxca.ava.presentation.view.fragment.ChooseCountDialogFragment;
+import com.acxca.ava.presentation.view.fragment.SpeechListFragment;
 import com.acxca.ava.presentation.view.fragment.WordStatListFragment;
 import com.acxca.domain.BookMark;
 
@@ -46,6 +47,7 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
     private Fragment mCurrentFragment;
     private WordStatListFragment wordStatListFragment;
     private BookMarkListFragment bookMarkListFragment;
+    private SpeechListFragment speechListFragment;
 
     @Bind(R.id.tv_vocab) TabView tvVocab;
     @Bind(R.id.tv_speech) TabView tvSpeech;
@@ -90,10 +92,13 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
 
             wordStatListFragment = new WordStatListFragment();
             bookMarkListFragment = new BookMarkListFragment();
+            speechListFragment = new SpeechListFragment();
 
             mCurrentFragment = wordStatListFragment;
-            ft.add(R.id.container, wordStatListFragment, "frg_voc").add(R.id.container, bookMarkListFragment, "frg_bookmark").hide(bookMarkListFragment).show(wordStatListFragment).commit();
-//            addFragment(R.id.container, new WordStatListFragment());
+            ft.add(R.id.container, wordStatListFragment, "frg_voc").
+                    add(R.id.container, speechListFragment, "frg_speech").hide(speechListFragment).
+                    add(R.id.container, bookMarkListFragment, "frg_bookmark").hide(bookMarkListFragment).
+                    show(wordStatListFragment).commit();
         }
     }
 
@@ -104,19 +109,34 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
 
     @OnClick(R.id.tv_bookmark)
     void gotoBookMark() {
-
-        // 隐藏actionbar和tab
-//        findViewById(R.id.action_bar_container).setVisibility(View.GONE);
-//        findViewById(R.id.cl_tab).setVisibility(View.GONE);
-
         FragmentTransaction ft = fm.beginTransaction();
         ft.hide(mCurrentFragment).show(bookMarkListFragment).commit();
-
         mCurrentFragment = bookMarkListFragment;
-
 
         TextView title = findViewById(R.id.tv_title);
         title.setText("书签");
+    }
+
+    @OnClick(R.id.tv_vocab)
+    void gotoVocabulary() {
+
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.hide(mCurrentFragment).show(wordStatListFragment).commit();
+        mCurrentFragment = wordStatListFragment;
+
+        TextView title = findViewById(R.id.tv_title);
+        title.setText("词汇");
+    }
+
+    @OnClick(R.id.tv_speech)
+    void gotoSpeech() {
+
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.hide(mCurrentFragment).show(speechListFragment).commit();
+        mCurrentFragment = speechListFragment;
+
+        TextView title = findViewById(R.id.tv_title);
+        title.setText("会话");
     }
 
 

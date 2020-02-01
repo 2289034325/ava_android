@@ -19,6 +19,7 @@ import android.content.Context;
 
 import com.acxca.ava.service.api.DictionaryServiceImp;
 import com.acxca.ava.service.api.ReadingServiceImp;
+import com.acxca.ava.service.api.SpeechServiceImp;
 import com.acxca.ava.service.api.UserServiceImp;
 import com.acxca.ava.service.cache.UserCache;
 import com.acxca.ava.service.cache.UserCacheImpl;
@@ -31,6 +32,7 @@ import com.acxca.ava.presentation.AndroidApplication;
 import com.acxca.ava.presentation.UIThread;
 import com.acxca.domain.service.DictionaryService;
 import com.acxca.domain.service.ReadingService;
+import com.acxca.domain.service.SpeechService;
 import com.acxca.domain.service.UserService;
 
 import java.util.Map;
@@ -90,5 +92,11 @@ public class ApplicationModule {
   @Singleton
   ReadingService provideReadingService(ReadingServiceImp readingServiceImp) {
     return readingServiceImp;
+  }
+
+  @Provides
+  @Singleton
+  SpeechService provideSpeechService(SpeechServiceImp speechServiceImp) {
+    return speechServiceImp;
   }
 }
