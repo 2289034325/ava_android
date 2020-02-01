@@ -20,10 +20,12 @@ import android.support.annotation.NonNull;
 import com.acxca.ava.presentation.di.PerActivity;
 import com.acxca.ava.presentation.exception.ErrorMessageFactory;
 import com.acxca.ava.presentation.view.ReadingView;
+import com.acxca.domain.BookMark;
 import com.acxca.domain.Word;
 import com.acxca.domain.exception.DefaultErrorBundle;
 import com.acxca.domain.exception.ErrorBundle;
 import com.acxca.domain.interactor.DefaultObserver;
+import com.acxca.domain.interactor.SaveBookMark;
 import com.acxca.domain.interactor.SearchWord;
 
 import javax.inject.Inject;
@@ -37,10 +39,13 @@ public class ReadingPresenter implements Presenter {
 
   private ReadingView readingView;
   private final SearchWord searchWordUseCase;
+  private final SaveBookMark saveBookMarkUseCase;
+
 
   @Inject
-  public ReadingPresenter(SearchWord searchWordUseCase) {
+  public ReadingPresenter(SearchWord searchWordUseCase,SaveBookMark saveBookMarkUseCase) {
     this.searchWordUseCase = searchWordUseCase;
+    this.saveBookMarkUseCase = saveBookMarkUseCase;
   }
 
   @Override public void resume() {}
@@ -65,6 +70,11 @@ public class ReadingPresenter implements Presenter {
     this.searchWordUseCase.execute(new SearchWordObserver(), SearchWord.Params.getParmas(lang,form));
   }
 
+  public void saveBookMark(BookMark bookMark){
+    this.showViewLoading();
+    this.saveBookMarkUseCase.execute(new SaveBookMarkObserver(),bookMark);
+  }
+
   private void showErrorMessage(ErrorBundle errorBundle) {
     String errorMessage = ErrorMessageFactory.create(this.readingView.context(),
             errorBundle.getException());
@@ -73,6 +83,23 @@ public class ReadingPresenter implements Presenter {
 
   private void hideViewLoading() {
     this.readingView.hideLoading();
+  }
+
+  private void saveBookMarkComplete(){
+    this.readingView.saveBookMarkComplete();
+  }
+
+  private final class SaveBookMarkObserver extends DefaultObserver {
+
+    @Override public void onComplete() {
+      ReadingPresenter.this.saveBookMarkComplete();
+      ReadingPresenter.this.hideViewLoading();
+    }
+
+    @Override public void onError(Throwable e) {
+      ReadingPresenter.this.hideViewLoading();
+      ReadingPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
+    }
   }
 
   private final class SearchWordObserver extends DefaultObserver<Word> {

@@ -28,6 +28,7 @@ ext {
   androidAnnotationsVersion = '21.0.3'
   arrowVersion = '1.0.0'
   constraintLayoutVersion = '1.1.3'
+  smartRefreshLayout = '1.1.0'
 
   //Testing
   robolectricVersion = '3.1.1'
@@ -52,7 +53,8 @@ ext {
       constraintLayout:   "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
       design:             "com.android.support:design:${designVersion}",
       appCompat:          "com.android.support:appcompat-v7:${compatVersion}",
-      cardview:          "com.android.support:cardview-v7:${cardviewVersion}"
+      cardview:          "com.android.support:cardview-v7:${cardviewVersion}",
+      smartRefreshLayout:"com.scwang.smartrefresh:SmartRefreshLayout:${smartRefreshLayout}"
   ]
 
   presentationTestDependencies = [

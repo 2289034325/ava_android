@@ -4,32 +4,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.ActionMode;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.acxca.ava.presentation.AndroidApplication;
-import com.acxca.ava.presentation.consts.Consts;
 import com.acxca.ava.presentation.R;
+import com.acxca.ava.presentation.consts.Consts;
 import com.acxca.ava.presentation.di.HasComponent;
 import com.acxca.ava.presentation.di.components.DaggerDictionaryComponent;
 import com.acxca.ava.presentation.di.components.DictionaryComponent;
 import com.acxca.ava.presentation.view.component.TabView;
 import com.acxca.ava.presentation.view.fragment.BookMarkListFragment;
 import com.acxca.ava.presentation.view.fragment.ChooseCountDialogFragment;
-import com.acxca.ava.presentation.view.fragment.ReadingFragment;
-import com.acxca.ava.presentation.view.fragment.TranslateDialogFragment;
 import com.acxca.ava.presentation.view.fragment.WordStatListFragment;
-import com.acxca.domain.Word;
-
-import android.support.design.widget.BottomSheetDialog;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import com.acxca.domain.BookMark;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -118,6 +113,10 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
         ft.hide(mCurrentFragment).show(bookMarkListFragment).commit();
 
         mCurrentFragment = bookMarkListFragment;
+
+
+        TextView title = findViewById(R.id.tv_title);
+        title.setText("书签");
     }
 
 
@@ -167,9 +166,9 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
     }
 
     @Override
-    public void onBookMarkItemClicked(String url) {
+    public void onBookMarkItemClicked(BookMark bookMark) {
         Context context = this;
-        Intent intentToLaunch = ReadingActivity.getCallingIntent(context, url);
+        Intent intentToLaunch = ReadingActivity.getCallingIntent(context, bookMark);
         context.startActivity(intentToLaunch);
     }
 }

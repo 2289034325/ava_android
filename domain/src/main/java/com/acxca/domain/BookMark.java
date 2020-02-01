@@ -1,9 +1,10 @@
 package com.acxca.domain;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BookMark {
+public class BookMark implements Serializable {
     public String id;
     public String user_id;
     public String name;

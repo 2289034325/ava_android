@@ -18,4 +18,5 @@ public interface ReadingView extends LoadDataView {
 
     void showTranslateWord(Word w);
     void showTranslateSentence(String meaning);
+    void saveBookMarkComplete();
 }

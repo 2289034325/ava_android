@@ -33,6 +33,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -95,6 +96,61 @@ public class ReadingServiceImp implements ReadingService {
             final Type responseType = new TypeToken<List<BookMark>>() {}.getType();
             List<BookMark> bms = this.gson.fromJson(responseString, responseType);
             emitter.onNext(bms);
+            emitter.onComplete();
+          } else {
+            emitter.onError(new NetworkConnectionException());
+          }
+        } catch (Exception e) {
+          emitter.onError(new NetworkConnectionException(e.getCause()));
+        }
+      } else {
+        emitter.onError(new NetworkConnectionException());
+      }
+    });
+  }
+
+
+  @Override
+  public Observable saveBookMark(BookMark bookMark) {
+    return Observable.create(emitter -> {
+      if (serviceUtil.isThereInternetConnection()) {
+        try {
+          Map<String,String> tokenHeader = serviceUtil.getTokenHeader();
+          Method m;
+          if(bookMark.id == null || "".equals(bookMark.id)){
+            bookMark.id = UUID.randomUUID().toString();
+            m = Method.POST;
+          }
+          else{
+            m = Method.PUT;
+          }
+          String params = gson.toJson(bookMark);
+          String responseString =  ApiConnection.create(m,ServiceConsts.API_READ_BOOKMARK_SAVE_MODIFY,params,tokenHeader).call();
+
+          if (responseString != null) {
+            emitter.onComplete();
+          } else {
+            emitter.onError(new NetworkConnectionException());
+          }
+        } catch (Exception e) {
+          emitter.onError(new NetworkConnectionException(e.getCause()));
+        }
+      } else {
+        emitter.onError(new NetworkConnectionException());
+      }
+    });
+  }
+
+  @Override
+  public Observable deleteBookMark(BookMark bookMark) {
+    return Observable.create(emitter -> {
+      if (serviceUtil.isThereInternetConnection()) {
+        try {
+          Map<String,String> tokenHeader = serviceUtil.getTokenHeader();
+          String url = String.format(ServiceConsts.API_READ_BOOKMARK_SAVE_MODIFY,bookMark.getId());
+          String responseString =  ApiConnection.create(Method.DELETE,url,null,tokenHeader).call();
+
+          if (responseString != null) {
             emitter.onComplete();
           } else {
             emitter.onError(new NetworkConnectionException());

@@ -76,6 +76,7 @@ dependencies {
   compile presentationDependencies.rxAndroid
   provided presentationDependencies.javaxAnnotation
   compile presentationDependencies.constraintLayout
+  compile presentationDependencies.smartRefreshLayout
 
   androidTestCompile presentationTestDependencies.mockito
   androidTestCompile presentationTestDependencies.dexmaker

@@ -22,6 +22,7 @@ import com.acxca.ava.presentation.di.components.ReadingComponent;
 import com.acxca.ava.presentation.di.components.UserComponent;
 import com.acxca.ava.presentation.view.fragment.ReadingFragment;
 import com.acxca.ava.presentation.view.fragment.TranslateDialogFragment;
+import com.acxca.domain.BookMark;
 import com.acxca.domain.Word;
 
 /**
@@ -29,16 +30,16 @@ import com.acxca.domain.Word;
  */
 public class ReadingActivity extends BaseActivity implements HasComponent<ReadingComponent>, ReadingFragment.ServiceResultListener {
 
-    private static final String INTENT_EXTRA_PARAM_URL = "INTENT_EXTRA_PARAM_URL";
-    private static final String INSTANCE_STATE_PARAM_URL = "INSTANCE_STATE_PARAM_URL";
+    private static final String INTENT_EXTRA_PARAM = "INTENT_EXTRA_PARAM";
+    private static final String INSTANCE_STATE_PARAM = "INSTANCE_STATE_PARAM";
 
-    public static Intent getCallingIntent(Context context, String url) {
+    public static Intent getCallingIntent(Context context, BookMark bookMark) {
         Intent callingIntent = new Intent(context, ReadingActivity.class);
-        callingIntent.putExtra(INTENT_EXTRA_PARAM_URL, url);
+        callingIntent.putExtra(INTENT_EXTRA_PARAM, bookMark);
         return callingIntent;
     }
 
-    private String url;
+    private BookMark bookMark;
     private ReadingComponent readingComponent;
     private ReadingFragment readingFragment;
 
@@ -57,7 +58,7 @@ public class ReadingActivity extends BaseActivity implements HasComponent<Readin
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (outState != null) {
-            outState.putString(INSTANCE_STATE_PARAM_URL, this.url);
+            outState.putSerializable(INSTANCE_STATE_PARAM, this.bookMark);
         }
         super.onSaveInstanceState(outState);
     }
@@ -67,11 +68,11 @@ public class ReadingActivity extends BaseActivity implements HasComponent<Readin
      */
     private void initializeActivity(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            this.url = getIntent().getStringExtra(INTENT_EXTRA_PARAM_URL);
-            readingFragment = ReadingFragment.getInstance(url);
+            this.bookMark = (BookMark) getIntent().getSerializableExtra(INTENT_EXTRA_PARAM);
+            readingFragment = ReadingFragment.getInstance(bookMark);
             addFragment(R.id.fragmentContainer, readingFragment);
         } else {
-            this.url = savedInstanceState.getString(INSTANCE_STATE_PARAM_URL);
+            this.bookMark = (BookMark) savedInstanceState.getSerializable(INSTANCE_STATE_PARAM);
         }
     }
 

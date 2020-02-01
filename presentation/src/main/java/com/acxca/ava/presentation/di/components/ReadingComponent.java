@@ -17,11 +17,10 @@ package com.acxca.ava.presentation.di.components;
 
 import com.acxca.ava.presentation.di.PerActivity;
 import com.acxca.ava.presentation.di.modules.ActivityModule;
-import com.acxca.ava.presentation.di.modules.DictionaryModule;
 import com.acxca.ava.presentation.di.modules.ReadingModule;
 import com.acxca.ava.presentation.view.fragment.BookMarkListFragment;
 import com.acxca.ava.presentation.view.fragment.ReadingFragment;
-import com.acxca.ava.presentation.view.fragment.WordStatListFragment;
+import com.acxca.ava.presentation.view.fragment.SaveBookmarkDialogFragment;
 
 import dagger.Component;
 
@@ -34,4 +33,5 @@ import dagger.Component;
 public interface ReadingComponent extends ActivityComponent {
   void inject(BookMarkListFragment bookMarkListFragment);
   void inject(ReadingFragment readingFragment);
+  void inject(SaveBookmarkDialogFragment saveBookmarkDialogFragment);
 }

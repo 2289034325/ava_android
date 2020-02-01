@@ -32,4 +32,8 @@ public interface ReadingService {
     Observable<Word> searchWord(int lang,String form);
 
     Observable<List<BookMark>> getBookMarkList();
+
+    Observable saveBookMark(BookMark bookMark);
+
+    Observable deleteBookMark(BookMark bookMark);
 }

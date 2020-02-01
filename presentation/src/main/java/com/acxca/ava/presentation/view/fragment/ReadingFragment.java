@@ -6,25 +6,18 @@
 package com.acxca.ava.presentation.view.fragment;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.acxca.ava.presentation.AndroidApplication;
 import com.acxca.ava.presentation.R;
@@ -32,21 +25,13 @@ import com.acxca.ava.presentation.consts.Consts;
 import com.acxca.ava.presentation.consts.Lang;
 import com.acxca.ava.presentation.di.HasComponent;
 import com.acxca.ava.presentation.di.components.ApplicationComponent;
-import com.acxca.ava.presentation.di.components.DaggerDictionaryComponent;
 import com.acxca.ava.presentation.di.components.DaggerReadingComponent;
-import com.acxca.ava.presentation.di.components.DictionaryComponent;
 import com.acxca.ava.presentation.di.components.ReadingComponent;
 import com.acxca.ava.presentation.di.modules.ActivityModule;
 import com.acxca.ava.presentation.presenter.ReadingPresenter;
-import com.acxca.ava.presentation.presenter.WordStatListPresenter;
 import com.acxca.ava.presentation.view.ReadingView;
-import com.acxca.ava.presentation.view.WordStatListView;
-import com.acxca.ava.presentation.view.adapter.UserWordStatListAdapter;
-import com.acxca.ava.presentation.view.adapter.UsersLayoutManager;
-import com.acxca.domain.UserWordStat;
+import com.acxca.domain.BookMark;
 import com.acxca.domain.Word;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -58,9 +43,12 @@ import butterknife.OnClick;
  * Fragment that shows a list of Users.
  */
 public class ReadingFragment extends BaseFragment implements ReadingView, HasComponent<ReadingComponent> {
-    private static final String PARAM_URL = "param_url";
+    private static final String PARAM = "param";
 
+    private BookMark bookMark;
     private Lang lang;
+
+    private SaveBookmarkDialogFragment saveDialog;
 
     public interface ServiceResultListener {
         void onSentenceResult(String meaning);
@@ -89,10 +77,10 @@ public class ReadingFragment extends BaseFragment implements ReadingView, HasCom
         setRetainInstance(true);
     }
 
-    public static ReadingFragment getInstance(String url) {
+    public static ReadingFragment getInstance(BookMark bookMark) {
         final ReadingFragment readingFragment = new ReadingFragment();
         final Bundle arguments = new Bundle();
-        arguments.putString(PARAM_URL, url);
+        arguments.putSerializable(PARAM, bookMark);
         readingFragment.setArguments(arguments);
         return readingFragment;
     }
@@ -141,9 +129,12 @@ public class ReadingFragment extends BaseFragment implements ReadingView, HasCom
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            String url = bundle.getString(PARAM_URL);
-            txbUrl.setText(url);
-            webView.loadUrl(url);
+            BookMark bookMark = (BookMark) bundle.getSerializable(PARAM);
+            if(bookMark != null) {
+                this.bookMark = bookMark;
+                txbUrl.setText(bookMark.url);
+                webView.loadUrl(bookMark.url);
+            }
         }
 
         setLangFlg(lang);
@@ -177,6 +168,16 @@ public class ReadingFragment extends BaseFragment implements ReadingView, HasCom
 
         this.lang = lang;
         setLangFlg(lang);
+    }
+
+    @OnClick(R.id.ib_save)
+    void onSaveClick(){
+        if(saveDialog == null) {
+            saveDialog = new SaveBookmarkDialogFragment();
+        }
+        saveDialog.readingPresenter = this.readingPresenter;
+        saveDialog.init(getActivity(),getActivity().getSupportFragmentManager(),bookMark);
+        saveDialog.show();
     }
 
     private void setLangFlg(Lang lang){
@@ -313,6 +314,11 @@ public class ReadingFragment extends BaseFragment implements ReadingView, HasCom
     @Override
     public void showTranslateSentence(String meaning) {
 
+    }
+
+    @Override
+    public void saveBookMarkComplete() {
+        saveDialog.dismiss();
     }
 
     public void startSearchWord(int lang, String word) {

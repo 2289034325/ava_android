@@ -29,10 +29,14 @@ import com.acxca.ava.presentation.presenter.WordStatListPresenter;
 import com.acxca.ava.presentation.view.BookMarkListView;
 import com.acxca.ava.presentation.view.WordStatListView;
 import com.acxca.ava.presentation.view.adapter.BookMarkListAdapter;
+import com.acxca.ava.presentation.view.adapter.ListLayoutManager;
 import com.acxca.ava.presentation.view.adapter.UserWordStatListAdapter;
 import com.acxca.ava.presentation.view.adapter.UsersLayoutManager;
 import com.acxca.domain.BookMark;
 import com.acxca.domain.UserWordStat;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
@@ -47,12 +51,6 @@ import butterknife.OnClick;
  */
 public class BookMarkListFragment extends BaseFragment implements BookMarkListView,HasComponent<ReadingComponent> {
 
-  @Override
-  public void renderBookMarkList(List<BookMark> bookMarkList) {
-    if (bookMarkList != null) {
-      this.listAdapter.setItems(bookMarkList);
-    }
-  }
 
   @Override
   public ReadingComponent getComponent() {
@@ -68,7 +66,7 @@ public class BookMarkListFragment extends BaseFragment implements BookMarkListVi
    * Interface for listening user list events.
    */
   public interface BookMarkListListener {
-    void onBookMarkItemClicked(String url);
+    void onBookMarkItemClicked(BookMark bookMark);
   }
 
   @Inject
@@ -79,15 +77,25 @@ public class BookMarkListFragment extends BaseFragment implements BookMarkListVi
 
   private ReadingComponent readingComponent;
 
-  @Bind(R.id.rv_word_stat) RecyclerView rv_word_stat;
+  @Bind(R.id.rv_bookmark) RecyclerView rv_bookmark;
   @Bind(R.id.rl_progress) RelativeLayout rl_progress;
-  @Bind(R.id.rl_retry) RelativeLayout rl_retry;
-  @Bind(R.id.bt_retry) Button bt_retry;
+  @Bind(R.id.refreshLayout) RefreshLayout refreshLayout;
+
+//  @Bind(R.id.rl_retry) RelativeLayout rl_retry;
+//  @Bind(R.id.bt_retry) Button bt_retry;
 
   private BookMarkListListener bookMarkListListener;
 
   public BookMarkListFragment() {
     setRetainInstance(true);
+  }
+
+  @Override
+  public void renderBookMarkList(List<BookMark> bookMarkList) {
+    if (bookMarkList != null) {
+      refreshLayout.finishRefresh(1);//传入false表示刷新失败
+      this.listAdapter.setItems(bookMarkList);
+    }
   }
 
   @Override public void onAttach(Activity activity) {
@@ -110,15 +118,28 @@ public class BookMarkListFragment extends BaseFragment implements BookMarkListVi
 
 //    this.getComponent(ReadingComponent.class).inject(this);
 
-    TextView title = getActivity().findViewById(R.id.tv_title);
-    title.setText("书签");
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    final View fragmentView = inflater.inflate(R.layout.fragment_word_stat_list, container, false);
+    final View fragmentView = inflater.inflate(R.layout.fragment_bookmark_list, container, false);
     ButterKnife.bind(this, fragmentView);
     setupRecyclerView();
+
+    refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+      @Override
+      public void onRefresh(RefreshLayout refreshlayout) {
+        bookMarkListPresenter.loadBookMarkList();
+      }
+    });
+    refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+      @Override
+      public void onLoadMore(RefreshLayout refreshlayout) {
+        refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+      }
+    });
+
+
     return fragmentView;
   }
 
@@ -142,7 +163,7 @@ public class BookMarkListFragment extends BaseFragment implements BookMarkListVi
 
   @Override public void onDestroyView() {
     super.onDestroyView();
-    rv_word_stat.setAdapter(null);
+    rv_bookmark.setAdapter(null);
     ButterKnife.unbind(this);
   }
 
@@ -167,11 +188,11 @@ public class BookMarkListFragment extends BaseFragment implements BookMarkListVi
   }
 
   @Override public void showRetry() {
-    this.rl_retry.setVisibility(View.VISIBLE);
+//    this.rl_retry.setVisibility(View.VISIBLE);
   }
 
   @Override public void hideRetry() {
-    this.rl_retry.setVisibility(View.GONE);
+//    this.rl_retry.setVisibility(View.GONE);
   }
 
   @Override public void showError(String message) {
@@ -184,15 +205,15 @@ public class BookMarkListFragment extends BaseFragment implements BookMarkListVi
 
   private void setupRecyclerView() {
     this.listAdapter.setOnItemClickListener(onItemClickListener);
-    this.rv_word_stat.setLayoutManager(new UsersLayoutManager(context()));
-    this.rv_word_stat.setAdapter(listAdapter);
+    this.rv_bookmark.setLayoutManager(new ListLayoutManager(context()));
+    this.rv_bookmark.setAdapter(listAdapter);
   }
 
   private BookMarkListAdapter.OnItemClickListener onItemClickListener =
       new BookMarkListAdapter.OnItemClickListener() {
         @Override public void onItemClicked(BookMark bookMark) {
           if (BookMarkListFragment.this.bookMarkListPresenter != null && bookMark != null) {
-            BookMarkListFragment.this.bookMarkListListener.onBookMarkItemClicked(bookMark.getUrl());
+            BookMarkListFragment.this.bookMarkListListener.onBookMarkItemClicked(bookMark);
             BookMarkListFragment.this.bookMarkListPresenter.onItemClicked(bookMark);
           }
         }
