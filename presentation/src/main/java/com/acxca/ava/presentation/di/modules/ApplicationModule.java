@@ -21,6 +21,7 @@ import com.acxca.ava.service.api.DictionaryServiceImp;
 import com.acxca.ava.service.api.ReadingServiceImp;
 import com.acxca.ava.service.api.SpeechServiceImp;
 import com.acxca.ava.service.api.UserServiceImp;
+import com.acxca.ava.service.api.WritingServiceImp;
 import com.acxca.ava.service.cache.UserCache;
 import com.acxca.ava.service.cache.UserCacheImpl;
 import com.acxca.ava.service.executor.JobExecutor;
@@ -34,6 +35,7 @@ import com.acxca.domain.service.DictionaryService;
 import com.acxca.domain.service.ReadingService;
 import com.acxca.domain.service.SpeechService;
 import com.acxca.domain.service.UserService;
+import com.acxca.domain.service.WritingService;
 
 import java.util.Map;
 
@@ -98,5 +100,11 @@ public class ApplicationModule {
   @Singleton
   SpeechService provideSpeechService(SpeechServiceImp speechServiceImp) {
     return speechServiceImp;
+  }
+
+  @Provides
+  @Singleton
+  WritingService provideWritingService(WritingServiceImp writingServiceImp) {
+    return writingServiceImp;
   }
 }

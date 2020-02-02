@@ -25,6 +25,7 @@ import com.acxca.domain.service.DictionaryService;
 import com.acxca.domain.service.ReadingService;
 import com.acxca.domain.service.SpeechService;
 import com.acxca.domain.service.UserService;
+import com.acxca.domain.service.WritingService;
 
 import dagger.Component;
 import javax.inject.Singleton;
@@ -46,4 +47,5 @@ public interface ApplicationComponent {
   DictionaryService dictionaryService();
   ReadingService readingService();
   SpeechService speechService();
+  WritingService writingService();
 }

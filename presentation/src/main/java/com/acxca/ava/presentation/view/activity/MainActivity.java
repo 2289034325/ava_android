@@ -25,6 +25,7 @@ import com.acxca.ava.presentation.view.fragment.BookMarkListFragment;
 import com.acxca.ava.presentation.view.fragment.ChooseCountDialogFragment;
 import com.acxca.ava.presentation.view.fragment.SpeechListFragment;
 import com.acxca.ava.presentation.view.fragment.WordStatListFragment;
+import com.acxca.ava.presentation.view.fragment.WritingListFragment;
 import com.acxca.domain.BookMark;
 
 import butterknife.Bind;
@@ -48,6 +49,7 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
     private WordStatListFragment wordStatListFragment;
     private BookMarkListFragment bookMarkListFragment;
     private SpeechListFragment speechListFragment;
+    private WritingListFragment writingListFragment;
 
     @Bind(R.id.tv_vocab) TabView tvVocab;
     @Bind(R.id.tv_speech) TabView tvSpeech;
@@ -93,10 +95,12 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
             wordStatListFragment = new WordStatListFragment();
             bookMarkListFragment = new BookMarkListFragment();
             speechListFragment = new SpeechListFragment();
+            writingListFragment = new WritingListFragment();
 
             mCurrentFragment = wordStatListFragment;
             ft.add(R.id.container, wordStatListFragment, "frg_voc").
                     add(R.id.container, speechListFragment, "frg_speech").hide(speechListFragment).
+                    add(R.id.container, writingListFragment, "frg_writing").hide(writingListFragment).
                     add(R.id.container, bookMarkListFragment, "frg_bookmark").hide(bookMarkListFragment).
                     show(wordStatListFragment).commit();
         }
@@ -137,6 +141,17 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
 
         TextView title = findViewById(R.id.tv_title);
         title.setText("会话");
+    }
+
+    @OnClick(R.id.tv_writing)
+    void gotoWriting() {
+
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.hide(mCurrentFragment).show(writingListFragment).commit();
+        mCurrentFragment = writingListFragment;
+
+        TextView title = findViewById(R.id.tv_title);
+        title.setText("写作");
     }
 
 

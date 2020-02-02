@@ -10,6 +10,7 @@ public class ServiceConsts {
     public static final String API_READ_BOOKMARK_SAVE_MODIFY = API_BASE_URL+"app/reading/bookmark";
     public static final String API_READ_BOOKMARK_DELETE = API_BASE_URL+"app/reading/bookmark/%s";
     public static final String API_SPEECH_LIST = API_BASE_URL+"app/speech/article/list";
+    public static final String API_WRITING_LIST = API_BASE_URL+"app/writing/article/list";
 
 
 
