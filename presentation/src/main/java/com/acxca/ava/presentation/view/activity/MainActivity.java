@@ -23,6 +23,7 @@ import com.acxca.ava.presentation.di.components.DictionaryComponent;
 import com.acxca.ava.presentation.view.component.TabView;
 import com.acxca.ava.presentation.view.fragment.BookMarkListFragment;
 import com.acxca.ava.presentation.view.fragment.ChooseCountDialogFragment;
+import com.acxca.ava.presentation.view.fragment.MeFragment;
 import com.acxca.ava.presentation.view.fragment.SpeechListFragment;
 import com.acxca.ava.presentation.view.fragment.WordStatListFragment;
 import com.acxca.ava.presentation.view.fragment.WritingListFragment;
@@ -50,6 +51,7 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
     private BookMarkListFragment bookMarkListFragment;
     private SpeechListFragment speechListFragment;
     private WritingListFragment writingListFragment;
+    private MeFragment meFragment;
 
     @Bind(R.id.tv_vocab) TabView tvVocab;
     @Bind(R.id.tv_speech) TabView tvSpeech;
@@ -96,13 +98,17 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
             bookMarkListFragment = new BookMarkListFragment();
             speechListFragment = new SpeechListFragment();
             writingListFragment = new WritingListFragment();
+            meFragment = new MeFragment();
 
             mCurrentFragment = wordStatListFragment;
             ft.add(R.id.container, wordStatListFragment, "frg_voc").
                     add(R.id.container, speechListFragment, "frg_speech").hide(speechListFragment).
                     add(R.id.container, writingListFragment, "frg_writing").hide(writingListFragment).
                     add(R.id.container, bookMarkListFragment, "frg_bookmark").hide(bookMarkListFragment).
+                    add(R.id.container, meFragment, "frg_me").hide(meFragment).
                     show(wordStatListFragment).commit();
+
+            gotoVocabulary();
         }
     }
 
@@ -117,6 +123,12 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
         ft.hide(mCurrentFragment).show(bookMarkListFragment).commit();
         mCurrentFragment = bookMarkListFragment;
 
+        tvVocab.setSelected(false);
+        tvSpeech.setSelected(false);
+        tvWriting.setSelected(false);
+        tvBookmark.setSelected(true);
+        tvMe.setSelected(false);
+
         TextView title = findViewById(R.id.tv_title);
         title.setText("书签");
     }
@@ -127,6 +139,12 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
         FragmentTransaction ft = fm.beginTransaction();
         ft.hide(mCurrentFragment).show(wordStatListFragment).commit();
         mCurrentFragment = wordStatListFragment;
+
+        tvVocab.setSelected(true);
+        tvSpeech.setSelected(false);
+        tvWriting.setSelected(false);
+        tvBookmark.setSelected(false);
+        tvMe.setSelected(false);
 
         TextView title = findViewById(R.id.tv_title);
         title.setText("词汇");
@@ -139,6 +157,12 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
         ft.hide(mCurrentFragment).show(speechListFragment).commit();
         mCurrentFragment = speechListFragment;
 
+        tvVocab.setSelected(false);
+        tvSpeech.setSelected(true);
+        tvWriting.setSelected(false);
+        tvBookmark.setSelected(false);
+        tvMe.setSelected(false);
+
         TextView title = findViewById(R.id.tv_title);
         title.setText("会话");
     }
@@ -150,8 +174,31 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
         ft.hide(mCurrentFragment).show(writingListFragment).commit();
         mCurrentFragment = writingListFragment;
 
+        tvVocab.setSelected(false);
+        tvSpeech.setSelected(false);
+        tvWriting.setSelected(true);
+        tvBookmark.setSelected(false);
+        tvMe.setSelected(false);
+
         TextView title = findViewById(R.id.tv_title);
         title.setText("写作");
+    }
+
+    @OnClick(R.id.tv_me)
+    void gotoSetting() {
+
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.hide(mCurrentFragment).show(meFragment).commit();
+        mCurrentFragment = meFragment;
+
+        tvVocab.setSelected(false);
+        tvSpeech.setSelected(false);
+        tvWriting.setSelected(false);
+        tvBookmark.setSelected(false);
+        tvMe.setSelected(true);
+
+        TextView title = findViewById(R.id.tv_title);
+        title.setText("设置");
     }
 
 

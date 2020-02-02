@@ -135,6 +135,8 @@
     <declare-styleable name="TabView">
         <attr name="tabTitle" format="string" />
         <attr name="tabDrawable" format="reference" />
+        <attr name="tintColor" format="reference" />
+        <attr name="selectedTintColor" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="FocusImageView">

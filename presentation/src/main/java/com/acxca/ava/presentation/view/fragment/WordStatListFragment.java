@@ -52,8 +52,8 @@ public class WordStatListFragment extends BaseFragment implements WordStatListVi
 
   @Bind(R.id.rv_word_stat) RecyclerView rv_word_stat;
   @Bind(R.id.rl_progress) RelativeLayout rl_progress;
-  @Bind(R.id.rl_retry) RelativeLayout rl_retry;
-  @Bind(R.id.bt_retry) Button bt_retry;
+//  @Bind(R.id.rl_retry) RelativeLayout rl_retry;
+//  @Bind(R.id.bt_retry) Button bt_retry;
 
   private WordStatListListener wordStatListListener;
 
@@ -129,11 +129,11 @@ public class WordStatListFragment extends BaseFragment implements WordStatListVi
   }
 
   @Override public void showRetry() {
-    this.rl_retry.setVisibility(View.VISIBLE);
+//    this.rl_retry.setVisibility(View.VISIBLE);
   }
 
   @Override public void hideRetry() {
-    this.rl_retry.setVisibility(View.GONE);
+//    this.rl_retry.setVisibility(View.GONE);
   }
 
   @Override public void renderWordStatList(List<UserWordStat> userWordStatList) {
@@ -162,9 +162,9 @@ public class WordStatListFragment extends BaseFragment implements WordStatListVi
     this.rv_word_stat.setAdapter(listAdapter);
   }
 
-  @OnClick(R.id.bt_retry) void onButtonRetryClick() {
-    this.wordStatListPresenter.loadUserWordStatList();
-  }
+//  @OnClick(R.id.bt_retry) void onButtonRetryClick() {
+//    this.wordStatListPresenter.loadUserWordStatList();
+//  }
 
   private UserWordStatListAdapter.OnItemClickListener onItemClickListener =
       new UserWordStatListAdapter.OnItemClickListener() {

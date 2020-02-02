@@ -15,28 +15,30 @@
         android:layout_above="@+id/cl_tab"
         />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee"
+        android:layout_below="@+id/container"
+        />
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="@color/grayf3"
         >
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#eeeeee"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/tv_vocab" />
 
         <com.acxca.ava.presentation.view.component.TabView
             android:id="@+id/tv_vocab"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:gravity="center"
+            app:tintColor="@color/gray66"
+            app:selectedTintColor="@color/yjyx_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_speech"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:tabDrawable="@drawable/ic_vocab"
             app:tabTitle="词汇" />
@@ -46,9 +48,10 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:gravity="center"
+            app:tintColor="@color/gray66"
+            app:selectedTintColor="@color/yjyx_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_writing"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_vocab"
             app:tabDrawable="@drawable/ic_speech"
             app:tabTitle="会话" />
@@ -58,9 +61,10 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:gravity="center"
+            app:tintColor="@color/gray66"
+            app:selectedTintColor="@color/yjyx_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_bookmark"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_speech"
             app:tabDrawable="@drawable/ic_write"
             app:tabTitle="写作" />
@@ -70,9 +74,10 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:gravity="center"
+            app:tintColor="@color/gray66"
+            app:selectedTintColor="@color/yjyx_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_me"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_writing"
             app:tabDrawable="@drawable/ic_bookmark"
             app:tabTitle="书签" />
@@ -82,9 +87,10 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:gravity="center"
+            app:tintColor="@color/gray66"
+            app:selectedTintColor="@color/yjyx_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_bookmark"
             app:tabDrawable="@drawable/ic_me"
             app:tabTitle="我" />

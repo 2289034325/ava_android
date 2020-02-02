@@ -22,6 +22,9 @@ public class TabView extends FrameLayout {
     private TextView mTvTitle;
     private ImageView mIvIcon;
 
+    private int tintColor;
+    private int selectedTintColor;
+
     public TabView(Context context) {
         this(context, null, 0);
     }
@@ -39,6 +42,8 @@ public class TabView extends FrameLayout {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.TabView);
         String title = ta.getString(R.styleable.TabView_tabTitle);
         int drawable = ta.getResourceId(R.styleable.TabView_tabDrawable, 0);
+        tintColor = ta.getResources().getColor(ta.getResourceId(R.styleable.TabView_tintColor, R.color.gray66));
+        selectedTintColor = ta.getResources().getColor(ta.getResourceId(R.styleable.TabView_selectedTintColor, R.color.gray66));
         ta.recycle();
 
         if (TextUtils.isEmpty(title)) {
@@ -55,7 +60,9 @@ public class TabView extends FrameLayout {
         mIvIcon = (ImageView) view.findViewById(R.id.iv_icon);
 
         mTvTitle.setText(title);
+        mTvTitle.setTextColor(tintColor);
         mIvIcon.setImageResource(drawable);
+        mIvIcon.setColorFilter(tintColor);
 
         addView(view);
     }
@@ -65,5 +72,13 @@ public class TabView extends FrameLayout {
         super.setSelected(selected);
         mTvTitle.setSelected(selected);
         mIvIcon.setSelected(selected);
+        if(selected) {
+            mTvTitle.setTextColor(selectedTintColor);
+            mIvIcon.setColorFilter(selectedTintColor);
+        }
+        else{
+            mTvTitle.setTextColor(tintColor);
+            mIvIcon.setColorFilter(tintColor);
+        }
     }
 }
