@@ -37,6 +37,7 @@
             android:windowSoftInputMode="adjustResize"
             />
         <activity android:name=".view.activity.WordListActivity" />
+        <activity android:name=".view.activity.WordViewActivity" />
     </application>
 
 </manifest>

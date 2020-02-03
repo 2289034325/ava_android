@@ -1,10 +1,11 @@
 package com.acxca.domain;
 
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Word
+public class Word implements Serializable
 {
     private String id;
     private int lang;

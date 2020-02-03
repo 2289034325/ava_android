@@ -207,7 +207,7 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
     public void onWordStatItemClicked(final UserWordStat userWordStat) {
 
         View sheetView = getLayoutInflater().inflate(R.layout.dialog_bottom_wordstat, null);
-        BottomSheetDialog bsd = new BottomSheetDialog(this);
+        final BottomSheetDialog bsd = new BottomSheetDialog(this);
         bsd.setContentView(sheetView);
 
         LinearLayout ll_scan = sheetView.findViewById(R.id.ll_scan);
@@ -220,6 +220,7 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
             public void onClick(View v) {
                 Intent intentToLaunch = WordListActivity.getCallingIntent(MainActivity.this, userWordStat.getLang());
                 MainActivity.this.startActivity(intentToLaunch);
+                bsd.cancel();
             }
         });
         ll_learn.setOnClickListener(new View.OnClickListener() {
@@ -228,18 +229,22 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
                 ChooseCountDialogFragment fragment = new ChooseCountDialogFragment();
                 fragment.init(MainActivity.this,getSupportFragmentManager(),"learn");
                 fragment.show();
+                bsd.cancel();
             }
         });
         ll_revise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToastMessage("复习");
+                ChooseCountDialogFragment fragment = new ChooseCountDialogFragment();
+                fragment.init(MainActivity.this,getSupportFragmentManager(),"revise");
+                fragment.show();
+                bsd.cancel();
             }
         });
         ll_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToastMessage("取消");
+                bsd.cancel();
             }
         });
 

@@ -18,10 +18,6 @@ package com.acxca.ava.presentation.di.components;
 import com.acxca.ava.presentation.di.PerActivity;
 import com.acxca.ava.presentation.di.modules.ActivityModule;
 import com.acxca.ava.presentation.di.modules.DictionaryModule;
-import com.acxca.ava.presentation.di.modules.UserModule;
-import com.acxca.ava.presentation.view.fragment.LoginFragment;
-import com.acxca.ava.presentation.view.fragment.UserDetailsFragment;
-import com.acxca.ava.presentation.view.fragment.UserListFragment;
 import com.acxca.ava.presentation.view.fragment.WordListFragment;
 import com.acxca.ava.presentation.view.fragment.WordStatListFragment;
 

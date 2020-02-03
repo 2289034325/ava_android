@@ -1,9 +1,10 @@
 package com.acxca.domain;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Explain
+public class Explain implements Serializable
 {
     private String id;
     private String word_id;

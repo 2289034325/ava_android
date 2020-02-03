@@ -1,7 +1,9 @@
 package com.acxca.domain;
 
 
-public class Sentence
+import java.io.Serializable;
+
+public class Sentence implements Serializable
 {
     private String id;
     private String word_id;

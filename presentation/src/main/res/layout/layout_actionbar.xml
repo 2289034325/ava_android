@@ -4,7 +4,7 @@
     android:id="@+id/action_bar_container"
     android:layout_width="match_parent"
     android:layout_height="45dp"
-    android:background="@color/grayf3">
+    android:background="@color/tab_gray">
 
     <RelativeLayout
         android:id="@+id/action_back"
