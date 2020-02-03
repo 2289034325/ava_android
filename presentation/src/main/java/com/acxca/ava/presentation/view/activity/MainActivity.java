@@ -28,6 +28,7 @@ import com.acxca.ava.presentation.view.fragment.SpeechListFragment;
 import com.acxca.ava.presentation.view.fragment.WordStatListFragment;
 import com.acxca.ava.presentation.view.fragment.WritingListFragment;
 import com.acxca.domain.BookMark;
+import com.acxca.domain.UserWordStat;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -203,21 +204,22 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
 
 
     @Override
-    public void onWordStatItemClicked() {
+    public void onWordStatItemClicked(final UserWordStat userWordStat) {
 
         View sheetView = getLayoutInflater().inflate(R.layout.dialog_bottom_wordstat, null);
         BottomSheetDialog bsd = new BottomSheetDialog(this);
         bsd.setContentView(sheetView);
 
-        LinearLayout ll_scan = (LinearLayout) sheetView.findViewById(R.id.ll_scan);
-        LinearLayout ll_learn = (LinearLayout) sheetView.findViewById(R.id.ll_learn);
-        LinearLayout ll_revise = (LinearLayout) sheetView.findViewById(R.id.ll_revise);
-        LinearLayout ll_cancel = (LinearLayout) sheetView.findViewById(R.id.ll_cancel);
+        LinearLayout ll_scan = sheetView.findViewById(R.id.ll_scan);
+        LinearLayout ll_learn = sheetView.findViewById(R.id.ll_learn);
+        LinearLayout ll_revise = sheetView.findViewById(R.id.ll_revise);
+        LinearLayout ll_cancel = sheetView.findViewById(R.id.ll_cancel);
 
         ll_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToastMessage("浏览");
+                Intent intentToLaunch = WordListActivity.getCallingIntent(MainActivity.this, userWordStat.getLang());
+                MainActivity.this.startActivity(intentToLaunch);
             }
         });
         ll_learn.setOnClickListener(new View.OnClickListener() {

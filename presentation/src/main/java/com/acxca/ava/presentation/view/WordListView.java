@@ -5,8 +5,7 @@
 package com.acxca.ava.presentation.view;
 
 import com.acxca.ava.presentation.model.UserModel;
-import com.acxca.domain.BookMark;
-import com.acxca.domain.Speech;
+import com.acxca.domain.Word;
 
 import java.util.List;
 
@@ -14,9 +13,8 @@ import java.util.List;
  * Interface representing a View in a model view presenter (MVP) pattern.
  * In this case is used as a view representing a list of {@link UserModel}.
  */
-public interface SpeechkListView extends LoadDataView {
+public interface WordListView extends LoadDataView {
 
-  void renderSpeechList(List<Speech> speechList);
-
-  void openSpeech(Speech speech);
+  void renderWordList(List<Word> wordList);
+  void appendWordList(List<Word> wordList);
 }

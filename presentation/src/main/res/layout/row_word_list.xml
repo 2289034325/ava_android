@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingHorizontal="5dp"
+    tools:ignore="UseCompoundDrawables">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_spell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="word"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_pronounce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="/pronounce/"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_spell"
+            app:layout_constraintLeft_toRightOf="@+id/tv_spell"
+            app:layout_constraintTop_toTopOf="@id/tv_spell" />
+
+        <TextView
+            android:id="@+id/tv_phase"
+            android:layout_width="20dp"
+            android:layout_height="11dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/word_list_phase_tag"
+            android:gravity="center_horizontal"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_spell"
+            app:layout_constraintRight_toLeftOf="@+id/tv_times"
+            app:layout_constraintTop_toTopOf="@id/tv_spell" />
+
+        <TextView
+            android:id="@+id/tv_times"
+            android:layout_width="20dp"
+            android:layout_height="11dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/word_list_times_tag"
+            android:gravity="center_horizontal"
+            android:text="4"
+            android:textColor="@color/white"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_spell"
+            app:layout_constraintRight_toLeftOf="@+id/tv_percentage"
+            app:layout_constraintTop_toTopOf="@id/tv_spell" />
+
+        <TextView
+            android:id="@+id/tv_percentage"
+            android:layout_width="40dp"
+            android:layout_height="11dp"
+            android:background="@drawable/word_list_wrong_percent_tag"
+            android:gravity="center_horizontal"
+            android:text="50.26%"
+            android:textColor="@color/white"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_spell"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_spell" />
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_meaning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="adj.最重要的；首要的； 主要的；资本的；本金的"
+        android:textColor="@color/black"
+        android:textSize="10sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/row_spliter" />
+</LinearLayout>
+

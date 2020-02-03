@@ -19,17 +19,13 @@ import android.support.annotation.NonNull;
 
 import com.acxca.ava.presentation.di.PerActivity;
 import com.acxca.ava.presentation.exception.ErrorMessageFactory;
-import com.acxca.ava.presentation.mapper.UserModelDataMapper;
-import com.acxca.ava.presentation.model.UserModel;
-import com.acxca.ava.presentation.view.WordStatListView;
-import com.acxca.domain.User;
-import com.acxca.domain.UserWordStat;
+import com.acxca.ava.presentation.view.SpeechListView;
+import com.acxca.domain.Speech;
 import com.acxca.domain.exception.DefaultErrorBundle;
 import com.acxca.domain.exception.ErrorBundle;
 import com.acxca.domain.interactor.DefaultObserver;
-import com.acxca.domain.interactor.GetUserWordStatList;
+import com.acxca.domain.interactor.GetSpeechkList;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -39,18 +35,18 @@ import javax.inject.Inject;
  * layer.
  */
 @PerActivity
-public class WordStatListPresenter implements Presenter {
+public class SpeechListPresenter implements Presenter {
 
-  private WordStatListView viewListView;
+  private SpeechListView viewListView;
 
-  private final GetUserWordStatList getUserWordStatListUseCase;
+  private final GetSpeechkList getSpeechListUseCase;
 
   @Inject
-  public WordStatListPresenter(GetUserWordStatList getUserWordStatListUseCase) {
-    this.getUserWordStatListUseCase = getUserWordStatListUseCase;
+  public SpeechListPresenter(GetSpeechkList getSpeechListUseCase) {
+    this.getSpeechListUseCase = getSpeechListUseCase;
   }
 
-  public void setView(@NonNull WordStatListView view) {
+  public void setView(@NonNull SpeechListView view) {
     this.viewListView = view;
   }
 
@@ -59,21 +55,21 @@ public class WordStatListPresenter implements Presenter {
   @Override public void pause() {}
 
   @Override public void destroy() {
-    this.getUserWordStatListUseCase.dispose();
+    this.getSpeechListUseCase.dispose();
     this.viewListView = null;
   }
 
   /**
    * Loads all users.
    */
-  public void loadUserWordStatList() {
+  public void loadSpeechList() {
     this.hideViewRetry();
     this.showViewLoading();
-    this.getUserWordStatListUseCase.execute(new UserWordStatListObserver(), null);
+    this.getSpeechListUseCase.execute(new SpeechListObserver(), null);
   }
 
-  public void onItemClicked(UserWordStat userWordStat) {
-    this.viewListView.showMenu(userWordStat);
+  public void onItemClicked(Speech speech) {
+    this.viewListView.openSpeech(speech);
   }
 
   private void showViewLoading() {
@@ -98,24 +94,20 @@ public class WordStatListPresenter implements Presenter {
     this.viewListView.showError(errorMessage);
   }
 
-  private void showUsersCollectionInView(List<UserWordStat> userWordStatList) {
-    this.viewListView.renderWordStatList(userWordStatList);
-  }
-
-  private final class UserWordStatListObserver extends DefaultObserver<List<UserWordStat>> {
+  private final class SpeechListObserver extends DefaultObserver<List<Speech>> {
 
     @Override public void onComplete() {
-      WordStatListPresenter.this.hideViewLoading();
+      SpeechListPresenter.this.hideViewLoading();
     }
 
     @Override public void onError(Throwable e) {
-      WordStatListPresenter.this.hideViewLoading();
-      WordStatListPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
-      WordStatListPresenter.this.showViewRetry();
+      SpeechListPresenter.this.hideViewLoading();
+      SpeechListPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
+      SpeechListPresenter.this.showViewRetry();
     }
 
-    @Override public void onNext(List<UserWordStat> userWordStatList) {
-      WordStatListPresenter.this.showUsersCollectionInView(userWordStatList);
+    @Override public void onNext(List<Speech> speechList) {
+      SpeechListPresenter.this.viewListView.renderSpeechList(speechList);
     }
   }
 }

@@ -36,6 +36,7 @@
             android:theme="@style/NoActionBar_FullScreen"
             android:windowSoftInputMode="adjustResize"
             />
+        <activity android:name=".view.activity.WordListActivity" />
     </application>
 
 </manifest>

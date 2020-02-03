@@ -19,14 +19,11 @@ import android.support.annotation.NonNull;
 
 import com.acxca.ava.presentation.di.PerActivity;
 import com.acxca.ava.presentation.exception.ErrorMessageFactory;
-import com.acxca.ava.presentation.view.SpeechkListView;
 import com.acxca.ava.presentation.view.WritingListView;
-import com.acxca.domain.Speech;
 import com.acxca.domain.WritingArticle;
 import com.acxca.domain.exception.DefaultErrorBundle;
 import com.acxca.domain.exception.ErrorBundle;
 import com.acxca.domain.interactor.DefaultObserver;
-import com.acxca.domain.interactor.GetSpeechkList;
 import com.acxca.domain.interactor.GetWritingArticleList;
 
 import java.util.List;

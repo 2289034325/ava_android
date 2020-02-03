@@ -17,6 +17,7 @@ package com.acxca.domain.service;
 
 import com.acxca.domain.User;
 import com.acxca.domain.UserWordStat;
+import com.acxca.domain.Word;
 
 import java.util.List;
 import java.util.Map;
@@ -29,4 +30,6 @@ import io.reactivex.Observable;
 public interface DictionaryService {
 
   Observable<List<UserWordStat>> getWordStatList();
+
+  Observable<List<Word>> getWordList(int lang, int pageIndex,int pageSize);
 }

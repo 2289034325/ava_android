@@ -41,7 +41,7 @@ public class WordStatListFragment extends BaseFragment implements WordStatListVi
    * Interface for listening user list events.
    */
   public interface WordStatListListener {
-    void onWordStatItemClicked();
+    void onWordStatItemClicked(UserWordStat userWordStat);
   }
 
   @Inject
@@ -142,9 +142,9 @@ public class WordStatListFragment extends BaseFragment implements WordStatListVi
     }
   }
 
-  @Override public void showMenu() {
+  @Override public void showMenu(UserWordStat userWordStat) {
     if (this.wordStatListListener != null) {
-      this.wordStatListListener.onWordStatItemClicked();
+      this.wordStatListListener.onWordStatItemClicked(userWordStat);
     }
   }
 
@@ -170,7 +170,7 @@ public class WordStatListFragment extends BaseFragment implements WordStatListVi
       new UserWordStatListAdapter.OnItemClickListener() {
         @Override public void onItemClicked(UserWordStat userWordStat) {
           if (WordStatListFragment.this.wordStatListPresenter != null && userWordStat != null) {
-            WordStatListFragment.this.wordStatListPresenter.onItemClicked();
+            WordStatListFragment.this.wordStatListPresenter.onItemClicked(userWordStat);
           }
         }
       };

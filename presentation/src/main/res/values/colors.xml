@@ -94,5 +94,7 @@
     <color name="tab_blue">#2196F3</color>
     <color name="row_spliter">#9B9B9B</color>
     <color name="row_spliter_wide">#EBEBEB</color>
+    <color name="row_spliter_darker">#525252</color>
+    <color name="text_gray">#6F6F6F</color>
 
 </resources>

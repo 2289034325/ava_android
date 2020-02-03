@@ -23,6 +23,7 @@ import com.acxca.ava.service.exception.NetworkConnectionException;
 import com.acxca.ava.service.net.ApiConnection;
 import com.acxca.ava.service.net.Method;
 import com.acxca.domain.UserWordStat;
+import com.acxca.domain.Word;
 import com.acxca.domain.repository.UserRepository;
 import com.acxca.domain.service.DictionaryService;
 import com.google.gson.Gson;
@@ -64,6 +65,32 @@ public class DictionaryServiceImp implements DictionaryService {
           if (responseString != null) {
             final Type responseType = new TypeToken<List<UserWordStat>>() {}.getType();
             List<UserWordStat> m = this.gson.fromJson(responseString, responseType);
+            emitter.onNext(m);
+            emitter.onComplete();
+          } else {
+            emitter.onError(new NetworkConnectionException());
+          }
+        } catch (Exception e) {
+          emitter.onError(new NetworkConnectionException(e.getCause()));
+        }
+      } else {
+        emitter.onError(new NetworkConnectionException());
+      }
+    });
+  }
+
+  @Override
+  public Observable<List<Word>> getWordList(int lang, int pageIndex,int pageSize) {
+    return Observable.create(emitter -> {
+      if (serviceUtil.isThereInternetConnection()) {
+        try {
+          Map<String,String> tokenHeader = serviceUtil.getTokenHeader();
+          String url = String.format(ServiceConsts.API_DIC_WORD_LIST,lang,pageSize,pageIndex);
+          String responseString =  ApiConnection.create(Method.GET,url,null,tokenHeader).call();
+
+          if (responseString != null) {
+            final Type responseType = new TypeToken<List<Word>>() {}.getType();
+            List<Word> m = this.gson.fromJson(responseString, responseType);
             emitter.onNext(m);
             emitter.onComplete();
           } else {

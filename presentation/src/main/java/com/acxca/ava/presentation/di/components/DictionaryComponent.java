@@ -22,6 +22,7 @@ import com.acxca.ava.presentation.di.modules.UserModule;
 import com.acxca.ava.presentation.view.fragment.LoginFragment;
 import com.acxca.ava.presentation.view.fragment.UserDetailsFragment;
 import com.acxca.ava.presentation.view.fragment.UserListFragment;
+import com.acxca.ava.presentation.view.fragment.WordListFragment;
 import com.acxca.ava.presentation.view.fragment.WordStatListFragment;
 
 import dagger.Component;
@@ -34,4 +35,5 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, DictionaryModule.class})
 public interface DictionaryComponent extends ActivityComponent {
   void inject(WordStatListFragment wordStatListFragment);
+  void inject(WordListFragment wordListFragment);
 }
