@@ -7,18 +7,18 @@ allprojects {
 
 ext {
   //Android
-  androidBuildToolsVersion = "26.0.2"
+  androidBuildToolsVersion = "28.0.0"
   androidMinSdkVersion = 16
-  androidTargetSdkVersion = 26
-  androidCompileSdkVersion = 26
+  androidTargetSdkVersion = 28
+  androidCompileSdkVersion = 28
 
   //Libraries
   daggerVersion = '2.8'
   butterKnifeVersion = '7.0.1'
-  recyclerViewVersion = '26.1.0'
-  designVersion = '26.1.0'
-  compatVersion = '26.1.0'
-  cardviewVersion = '26.1.0'
+  recyclerViewVersion = '27.1.1'
+  designVersion = '27.1.1'
+  compatVersion = '27.1.1'
+  cardviewVersion = '27.1.1'
   rxJavaVersion = '2.0.2'
   rxAndroidVersion = '2.0.1'
   javaxAnnotationVersion = '1.0'
@@ -28,7 +28,8 @@ ext {
   androidAnnotationsVersion = '21.0.3'
   arrowVersion = '1.0.0'
   constraintLayoutVersion = '1.1.3'
-  smartRefreshLayout = '1.1.0'
+  smartRefreshLayoutVersion = '1.1.0'
+  cardStackViewVersion = '2.3.2'
 
   //Testing
   robolectricVersion = '3.1.1'
@@ -54,7 +55,8 @@ ext {
       design:             "com.android.support:design:${designVersion}",
       appCompat:          "com.android.support:appcompat-v7:${compatVersion}",
       cardview:          "com.android.support:cardview-v7:${cardviewVersion}",
-      smartRefreshLayout:"com.scwang.smartrefresh:SmartRefreshLayout:${smartRefreshLayout}"
+      smartRefreshLayout:"com.scwang.smartrefresh:SmartRefreshLayout:${smartRefreshLayoutVersion}",
+      cardStackView:     "com.yuyakaido.android:card-stack-view:${cardStackViewVersion}"
   ]
 
   presentationTestDependencies = [

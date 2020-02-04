@@ -77,6 +77,9 @@ dependencies {
   provided presentationDependencies.javaxAnnotation
   compile presentationDependencies.constraintLayout
   compile presentationDependencies.smartRefreshLayout
+  // Multiple dex files define Landroid/support/v4/app/LoaderManager$LoaderCallbacks;
+  // 不加exclude 会报上面的错误 !!!
+  compile (presentationDependencies.cardStackView) { exclude group: 'com.android.support', module: 'recyclerview-v7' }
 
   androidTestCompile presentationTestDependencies.mockito
   androidTestCompile presentationTestDependencies.dexmaker

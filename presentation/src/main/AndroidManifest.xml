@@ -38,6 +38,7 @@
             />
         <activity android:name=".view.activity.WordListActivity" />
         <activity android:name=".view.activity.WordViewActivity" />
+        <activity android:name=".view.activity.WordTestActivity" />
     </application>
 
 </manifest>

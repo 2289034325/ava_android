@@ -14,8 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.acxca.ava.presentation.R;
+import com.acxca.ava.presentation.view.adapter.CardStackAdapter;
 import com.acxca.ava.presentation.view.adapter.WordViewPageAdapter;
 import com.acxca.domain.Word;
+import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
+import com.yuyakaido.android.cardstackview.CardStackView;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,7 +30,7 @@ import butterknife.OnClick;
 /**
  * Activity that shows details of a certain user.
  */
-public class WordViewActivity extends BaseActivity {
+public class WordTestActivity extends BaseActivity {
 
     private static final String INTENT_EXTRA_PARAM = "INTENT_EXTRA_PARAM";
     private static final String INSTANCE_STATE_PARAM = "INSTANCE_STATE_PARAM";
@@ -38,14 +41,8 @@ public class WordViewActivity extends BaseActivity {
     @Bind(R.id.tv_title)
     TextView tv_title;
 
-    @Bind(R.id.iv_back)
-    ImageView iv_back;
-
-    @Bind(R.id.vp_pager)
-    ViewPager vp_pager;
-
     public static Intent getCallingIntent(Context context, List<Word> wordList) {
-        Intent callingIntent = new Intent(context, WordViewActivity.class);
+        Intent callingIntent = new Intent(context, WordTestActivity.class);
         // tricky !!!
         callingIntent.putExtra(INTENT_EXTRA_PARAM, (Serializable) wordList);
         return callingIntent;
@@ -55,7 +52,7 @@ public class WordViewActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        setContentView(R.layout.activity_wordview);
+        setContentView(R.layout.activity_wordtest);
         ButterKnife.bind(this);
 
         this.initializeActivity(savedInstanceState);
@@ -82,27 +79,25 @@ public class WordViewActivity extends BaseActivity {
 
         tv_title.setText(String.format("%s/%s",currentIndex+1,wordList.size()));
 
+        CardStackView cardStackView = findViewById(R.id.card_stack_view);
+        cardStackView.setLayoutManager(new CardStackLayoutManager(this));
 
-        WordViewPageAdapter wvpd = new WordViewPageAdapter(wordList);
-        vp_pager.setAdapter(wvpd);
-        vp_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
-            @Override
-            public void onPageSelected(int position) {
-//                super.onPageSelected(position);
-                currentIndex = position;
-                tv_title.setText(String.format("%s/%s",currentIndex+1,wordList.size()));
-            }
-        });
+        cardStackView.setAdapter(new CardStackAdapter(this,wordList));
+
+//        WordViewPageAdapter wvpd = new WordViewPageAdapter(wordList);
+//        vp_pager.setAdapter(wvpd);
+//        vp_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+//            @Override
+//            public void onPageSelected(int position) {
+////                super.onPageSelected(position);
+//                currentIndex = position;
+//                tv_title.setText(String.format("%s/%s",currentIndex+1,wordList.size()));
+//            }
+//        });
     }
 
     @OnClick(R.id.iv_back)
     void naviBack() {
         finish();
-    }
-
-    @OnClick(R.id.iv_test)
-    void gotoTest() {
-        Intent intentToLaunch = WordTestActivity.getCallingIntent(this, wordList);
-        startActivity(intentToLaunch);
     }
 }
