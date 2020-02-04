@@ -19,6 +19,7 @@
             android:adjustViewBounds="true"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_back"
+            android:tint="@color/action_bar_ic_gray"
             android:scaleType="centerCrop"/>
     </RelativeLayout>
 

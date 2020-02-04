@@ -89,6 +89,14 @@ public class WordViewActivity extends BaseActivity {
 
         WordViewPageAdapter wvpd = new WordViewPageAdapter(wordList);
         vp_pager.setAdapter(wvpd);
+        vp_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+//                super.onPageSelected(position);
+                currentIndex = position;
+                tv_title.setText(String.format("%s/%s",currentIndex+1,wordList.size()));
+            }
+        });
     }
 
     @OnClick(R.id.iv_back)

@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2015 Fernando Cejas Open Source Project
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 package com.acxca.ava.service.api;
-
-import android.content.Context;
 
 import com.acxca.ava.service.ServiceConsts;
 import com.acxca.ava.service.ServiceUtil;
@@ -45,63 +43,119 @@ import io.reactivex.Observable;
 @Singleton
 public class DictionaryServiceImp implements DictionaryService {
 
-  private final Gson gson;
-  private final ServiceUtil serviceUtil;
+    private final Gson gson;
+    private final ServiceUtil serviceUtil;
 
-  @Inject
-  DictionaryServiceImp(ServiceUtil serviceUtil) {
-    this.serviceUtil = serviceUtil;
-    this.gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
-  }
+    @Inject
+    DictionaryServiceImp(ServiceUtil serviceUtil) {
+        this.serviceUtil = serviceUtil;
+        this.gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
+    }
 
-  @Override
-  public Observable<List<UserWordStat>> getWordStatList() {
-    return Observable.create(emitter -> {
-      if (serviceUtil.isThereInternetConnection()) {
-        try {
-          Map<String,String> tokenHeader = serviceUtil.getTokenHeader();
-          String responseString =  ApiConnection.create(Method.GET,ServiceConsts.API_DIC_STAT_LIST,null,tokenHeader).call();
+    @Override
+    public Observable<List<UserWordStat>> getWordStatList() {
+        return Observable.create(emitter -> {
+            if (serviceUtil.isThereInternetConnection()) {
+                try {
+                    Map<String, String> tokenHeader = serviceUtil.getTokenHeader();
+                    String responseString = ApiConnection.create(Method.GET, ServiceConsts.API_DIC_STAT_LIST, null, tokenHeader).call();
 
-          if (responseString != null) {
-            final Type responseType = new TypeToken<List<UserWordStat>>() {}.getType();
-            List<UserWordStat> m = this.gson.fromJson(responseString, responseType);
-            emitter.onNext(m);
-            emitter.onComplete();
-          } else {
-            emitter.onError(new NetworkConnectionException());
-          }
-        } catch (Exception e) {
-          emitter.onError(new NetworkConnectionException(e.getCause()));
-        }
-      } else {
-        emitter.onError(new NetworkConnectionException());
-      }
-    });
-  }
+                    if (responseString != null) {
+                        final Type responseType = new TypeToken<List<UserWordStat>>() {
+                        }.getType();
+                        List<UserWordStat> m = this.gson.fromJson(responseString, responseType);
+                        emitter.onNext(m);
+                        emitter.onComplete();
+                    } else {
+                        emitter.onError(new NetworkConnectionException());
+                    }
+                } catch (Exception e) {
+                    emitter.onError(new NetworkConnectionException(e.getCause()));
+                }
+            } else {
+                emitter.onError(new NetworkConnectionException());
+            }
+        });
+    }
 
-  @Override
-  public Observable<List<Word>> getWordList(int lang, int pageIndex,int pageSize) {
-    return Observable.create(emitter -> {
-      if (serviceUtil.isThereInternetConnection()) {
-        try {
-          Map<String,String> tokenHeader = serviceUtil.getTokenHeader();
-          String url = String.format(ServiceConsts.API_DIC_WORD_LIST,lang,pageSize,pageIndex);
-          String responseString =  ApiConnection.create(Method.GET,url,null,tokenHeader).call();
+    @Override
+    public Observable<List<Word>> getWordList(int lang, int pageIndex, int pageSize) {
+        return Observable.create(emitter -> {
+            if (serviceUtil.isThereInternetConnection()) {
+                try {
+                    Map<String, String> tokenHeader = serviceUtil.getTokenHeader();
+                    String url = String.format(ServiceConsts.API_DIC_WORD_LIST, lang, pageSize, pageIndex);
+                    String responseString = ApiConnection.create(Method.GET, url, null, tokenHeader).call();
 
-          if (responseString != null) {
-            final Type responseType = new TypeToken<List<Word>>() {}.getType();
-            List<Word> m = this.gson.fromJson(responseString, responseType);
-            emitter.onNext(m);
-            emitter.onComplete();
-          } else {
-            emitter.onError(new NetworkConnectionException());
-          }
-        } catch (Exception e) {
-          emitter.onError(new NetworkConnectionException(e.getCause()));
-        }
-      } else {
-        emitter.onError(new NetworkConnectionException());
-      }
-    });
-  }
+                    if (responseString != null) {
+                        final Type responseType = new TypeToken<List<Word>>() {
+                        }.getType();
+                        List<Word> m = this.gson.fromJson(responseString, responseType);
+                        emitter.onNext(m);
+                        emitter.onComplete();
+                    } else {
+                        emitter.onError(new NetworkConnectionException());
+                    }
+                } catch (Exception e) {
+                    emitter.onError(new NetworkConnectionException(e.getCause()));
+                }
+            } else {
+                emitter.onError(new NetworkConnectionException());
+            }
+        });
+    }
+
+    @Override
+    public Observable<List<Word>> getNewWords(int lang, int count) {
+        return Observable.create(emitter -> {
+            if (serviceUtil.isThereInternetConnection()) {
+                try {
+                    Map<String, String> tokenHeader = serviceUtil.getTokenHeader();
+                    String url = String.format(ServiceConsts.API_DIC_WORD_NEW, lang, count);
+                    String responseString = ApiConnection.create(Method.GET, url, null, tokenHeader).call();
+
+                    if (responseString != null) {
+                        final Type responseType = new TypeToken<List<Word>>() {
+                        }.getType();
+                        List<Word> m = this.gson.fromJson(responseString, responseType);
+                        emitter.onNext(m);
+                        emitter.onComplete();
+                    } else {
+                        emitter.onError(new NetworkConnectionException());
+                    }
+                } catch (Exception e) {
+                    emitter.onError(new NetworkConnectionException(e.getCause()));
+                }
+            } else {
+                emitter.onError(new NetworkConnectionException());
+            }
+        });
+    }
+
+    @Override
+    public Observable<List<Word>> getOldWords(int lang, int count) {
+        return Observable.create(emitter -> {
+            if (serviceUtil.isThereInternetConnection()) {
+                try {
+                    Map<String, String> tokenHeader = serviceUtil.getTokenHeader();
+                    String url = String.format(ServiceConsts.API_DIC_WORD_OLD, lang, count);
+                    String responseString = ApiConnection.create(Method.GET, url, null, tokenHeader).call();
+
+                    if (responseString != null) {
+                        final Type responseType = new TypeToken<List<Word>>() {
+                        }.getType();
+                        List<Word> m = this.gson.fromJson(responseString, responseType);
+                        emitter.onNext(m);
+                        emitter.onComplete();
+                    } else {
+                        emitter.onError(new NetworkConnectionException());
+                    }
+                } catch (Exception e) {
+                    emitter.onError(new NetworkConnectionException(e.getCause()));
+                }
+            } else {
+                emitter.onError(new NetworkConnectionException());
+            }
+        });
+    }
 }

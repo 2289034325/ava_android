@@ -6,6 +6,7 @@ package com.acxca.ava.presentation.view;
 
 import com.acxca.ava.presentation.model.UserModel;
 import com.acxca.domain.UserWordStat;
+import com.acxca.domain.Word;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,6 +18,10 @@ import java.util.List;
 public interface WordStatListView extends LoadDataView {
 
   void renderWordStatList(List<UserWordStat> userWordStatList);
+
+  void gotoWordsView(List<Word> wordList);
+
+  void gotoTesting(List<Word> wordList);
 
   void showMenu(UserWordStat userWordStat);
 

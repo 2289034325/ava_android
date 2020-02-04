@@ -227,7 +227,7 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
             @Override
             public void onClick(View v) {
                 ChooseCountDialogFragment fragment = new ChooseCountDialogFragment();
-                fragment.init(MainActivity.this,getSupportFragmentManager(),"learn");
+                fragment.init(MainActivity.this,getSupportFragmentManager(),"learn",userWordStat.getLang(),wordStatListFragment.wordStatListPresenter);
                 fragment.show();
                 bsd.cancel();
             }
@@ -236,7 +236,7 @@ public class MainActivity extends BaseActivity implements HasComponent<Dictionar
             @Override
             public void onClick(View v) {
                 ChooseCountDialogFragment fragment = new ChooseCountDialogFragment();
-                fragment.init(MainActivity.this,getSupportFragmentManager(),"revise");
+                fragment.init(MainActivity.this,getSupportFragmentManager(),"revise",userWordStat.getLang(),wordStatListFragment.wordStatListPresenter);
                 fragment.show();
                 bsd.cancel();
             }

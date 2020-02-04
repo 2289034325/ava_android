@@ -7,6 +7,7 @@ package com.acxca.ava.presentation.view.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,9 +21,11 @@ import com.acxca.ava.presentation.R;
 import com.acxca.ava.presentation.di.components.DictionaryComponent;
 import com.acxca.ava.presentation.presenter.WordStatListPresenter;
 import com.acxca.ava.presentation.view.WordStatListView;
+import com.acxca.ava.presentation.view.activity.WordViewActivity;
 import com.acxca.ava.presentation.view.adapter.UserWordStatListAdapter;
 import com.acxca.ava.presentation.view.adapter.UsersLayoutManager;
 import com.acxca.domain.UserWordStat;
+import com.acxca.domain.Word;
 
 import java.util.List;
 
@@ -45,7 +48,7 @@ public class WordStatListFragment extends BaseFragment implements WordStatListVi
   }
 
   @Inject
-  WordStatListPresenter wordStatListPresenter;
+  public WordStatListPresenter wordStatListPresenter;
 
   @Inject
   UserWordStatListAdapter listAdapter;
@@ -140,6 +143,16 @@ public class WordStatListFragment extends BaseFragment implements WordStatListVi
     if (userWordStatList != null) {
       this.listAdapter.setItems(userWordStatList);
     }
+  }
+
+  @Override public void gotoWordsView(List<Word> wordList) {
+    Intent intentToLaunch = WordViewActivity.getCallingIntent(getContext(), wordList);
+    getActivity().startActivity(intentToLaunch);
+  }
+
+  @Override public void gotoTesting(List<Word> wordList) {
+//    Intent intentToLaunch = WordViewActivity.getCallingIntent(getContext(), wordList);
+//    getActivity().startActivity(intentToLaunch);
   }
 
   @Override public void showMenu(UserWordStat userWordStat) {

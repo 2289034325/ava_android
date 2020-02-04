@@ -90,6 +90,8 @@
     <color name="text_c">#cccccc</color>
     <color name="text_e">#eeeeee</color>
 
+
+    <color name="action_bar_ic_gray">#272727</color>
     <color name="tab_ic_blue">#0388e3</color>
     <color name="tab_ic_gray">#666666</color>
     <color name="tab_gray">#E7E7E7</color>

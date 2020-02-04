@@ -17,6 +17,7 @@ package com.acxca.ava.presentation.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.acxca.ava.presentation.consts.Lang;
 import com.acxca.ava.presentation.di.PerActivity;
 import com.acxca.ava.presentation.exception.ErrorMessageFactory;
 import com.acxca.ava.presentation.mapper.UserModelDataMapper;
@@ -24,13 +25,18 @@ import com.acxca.ava.presentation.model.UserModel;
 import com.acxca.ava.presentation.view.WordStatListView;
 import com.acxca.domain.User;
 import com.acxca.domain.UserWordStat;
+import com.acxca.domain.Word;
 import com.acxca.domain.exception.DefaultErrorBundle;
 import com.acxca.domain.exception.ErrorBundle;
 import com.acxca.domain.interactor.DefaultObserver;
+import com.acxca.domain.interactor.GetNewWords;
+import com.acxca.domain.interactor.GetOldWords;
 import com.acxca.domain.interactor.GetUserWordStatList;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -44,10 +50,14 @@ public class WordStatListPresenter implements Presenter {
   private WordStatListView viewListView;
 
   private final GetUserWordStatList getUserWordStatListUseCase;
+  private final GetNewWords getNewWordsUseCase;
+  private final GetOldWords getOldWordsUseCase;
 
   @Inject
-  public WordStatListPresenter(GetUserWordStatList getUserWordStatListUseCase) {
+  public WordStatListPresenter(GetUserWordStatList getUserWordStatListUseCase,GetNewWords getNewWordsUseCase,GetOldWords getOldWordsUseCase) {
     this.getUserWordStatListUseCase = getUserWordStatListUseCase;
+    this.getNewWordsUseCase = getNewWordsUseCase;
+    this.getOldWordsUseCase = getOldWordsUseCase;
   }
 
   public void setView(@NonNull WordStatListView view) {
@@ -70,6 +80,22 @@ public class WordStatListPresenter implements Presenter {
     this.hideViewRetry();
     this.showViewLoading();
     this.getUserWordStatListUseCase.execute(new UserWordStatListObserver(), null);
+  }
+  public void loadNewWords(Lang lang, int count) {
+    this.hideViewRetry();
+    this.showViewLoading();
+    Map params = new HashMap();
+    params.put("lang",lang.getId());
+    params.put("count",count);
+    this.getNewWordsUseCase.execute(new GetNewWordsObserver(), params);
+  }
+  public void loadOldWords(Lang lang, int count) {
+    this.hideViewRetry();
+    this.showViewLoading();
+    Map params = new HashMap();
+    params.put("lang",lang.getId());
+    params.put("count",count);
+    this.getOldWordsUseCase.execute(new GetOldWordsObserver(), params);
   }
 
   public void onItemClicked(UserWordStat userWordStat) {
@@ -116,6 +142,40 @@ public class WordStatListPresenter implements Presenter {
 
     @Override public void onNext(List<UserWordStat> userWordStatList) {
       WordStatListPresenter.this.showUsersCollectionInView(userWordStatList);
+    }
+  }
+
+  private final class GetNewWordsObserver extends DefaultObserver<List<Word>> {
+
+    @Override public void onComplete() {
+      WordStatListPresenter.this.hideViewLoading();
+    }
+
+    @Override public void onError(Throwable e) {
+      WordStatListPresenter.this.hideViewLoading();
+      WordStatListPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
+      WordStatListPresenter.this.showViewRetry();
+    }
+
+    @Override public void onNext(List<Word> wordList) {
+      WordStatListPresenter.this.viewListView.gotoWordsView(wordList);
+    }
+  }
+
+  private final class GetOldWordsObserver extends DefaultObserver<List<Word>> {
+
+    @Override public void onComplete() {
+      WordStatListPresenter.this.hideViewLoading();
+    }
+
+    @Override public void onError(Throwable e) {
+      WordStatListPresenter.this.hideViewLoading();
+      WordStatListPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
+      WordStatListPresenter.this.showViewRetry();
+    }
+
+    @Override public void onNext(List<Word> wordList) {
+      WordStatListPresenter.this.viewListView.gotoTesting(wordList);
     }
   }
 }

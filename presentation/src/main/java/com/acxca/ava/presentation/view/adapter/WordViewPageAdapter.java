@@ -30,6 +30,12 @@ public class WordViewPageAdapter extends PagerAdapter {
     }
 
     @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+//        super.destroyItem(container, position, object);
+        container.removeView((View) object);
+    }
+
+    @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View v = LayoutInflater.from(container.getContext()).inflate(R.layout.view_word_info, null);
 
@@ -37,7 +43,7 @@ public class WordViewPageAdapter extends PagerAdapter {
         TextView tv_spell = v.findViewById(R.id.tv_spell);
         tv_spell.setText(word.getSpell());
         TextView tv_pronounce = v.findViewById(R.id.tv_pronounce);
-        tv_pronounce.setText(word.getPronounce());
+        tv_pronounce.setText(String.format("[%s]",word.getPronounce()));
         TextView tv_meaning = v.findViewById(R.id.tv_meaning);
         tv_meaning.setText(word.getMeaning());
 

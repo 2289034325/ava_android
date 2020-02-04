@@ -32,4 +32,8 @@ public interface DictionaryService {
   Observable<List<UserWordStat>> getWordStatList();
 
   Observable<List<Word>> getWordList(int lang, int pageIndex,int pageSize);
+
+  Observable<List<Word>> getNewWords(int lang, int count);
+
+  Observable<List<Word>> getOldWords(int lang, int count);
 }
